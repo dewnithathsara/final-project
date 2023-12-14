@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="eventdesignPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #C2D9FF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.EventDesignFormController">
+   <children>
+      <Accordion />
+      <AnchorPane fx:id="eventBtnpane" layoutX="113.0" layoutY="189.0" prefHeight="768.0" prefWidth="1322.0" style="-fx-background-color: #7C93C3; -fx-background-radius: 20px;">
+         <children>
+            <AnchorPane layoutX="42.0" layoutY="54.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <ImageView fitHeight="228.0" fitWidth="228.0" layoutX="20.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/wedding.jpeg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnWedding" layoutX="26.0" layoutY="252.0" onAction="#btnWeddingOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="wedding" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="351.0" layoutY="58.0" prefHeight="299.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <ImageView fitHeight="253.0" fitWidth="228.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Aniversary.jpeg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnAnniversary" layoutX="39.0" layoutY="248.0" onAction="#btnAniversayOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Anniversary" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="661.0" layoutY="56.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <ImageView fitHeight="228.0" fitWidth="234.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/birthday.jpeg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnbirthday" layoutX="25.0" layoutY="246.0" onAction="#btnBirthdayOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Birthday" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="971.0" layoutY="58.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <JFXButton fx:id="btnconcert" layoutX="25.0" layoutY="246.0" onAction="#btnConcertOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Concerts" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="217.0" fitWidth="190.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/concerts.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="42.0" layoutY="408.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <ImageView fitHeight="228.0" fitWidth="234.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/festival.jpeg" />
+                     </image>
+                  </ImageView>
+                  <JFXButton fx:id="btnfestival" layoutX="25.0" layoutY="246.0" onAction="#btnFestivalOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Festival" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="367.0" layoutY="408.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <JFXButton fx:id="btnConference" layoutX="25.0" layoutY="246.0" onAction="#btnConferenceOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="conference" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="228.0" fitWidth="234.0" layoutX="24.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/festival.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="684.0" layoutY="399.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <JFXButton fx:id="btnnEducational" layoutX="25.0" layoutY="246.0" onAction="#btnEducationalOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Educational" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="217.0" fitWidth="190.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/concerts.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="983.0" layoutY="393.0" prefHeight="303.0" prefWidth="268.0" style="-fx-border-color: white; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+               <children>
+                  <JFXButton fx:id="btnSports" layoutX="25.0" layoutY="246.0" onAction="#btnSportsOnAction" prefHeight="47.0" prefWidth="196.0" style="-fx-border-color: blue; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-boder-style: solid; -fx-border-width: 3px;" text="Sports" textFill="#09139a">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="217.0" fitWidth="196.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/concerts.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

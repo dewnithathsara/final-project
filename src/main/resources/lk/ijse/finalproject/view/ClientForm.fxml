@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ClientPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #FFCACC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.ClientFormController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1785.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="52.0" layoutY="121.0" prefHeight="884.0" prefWidth="467.0" style="-fx-border-color: #F11A7B; -fx-background-color: #FFB7B7; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="27.0" layoutY="14.0" prefHeight="155.0" prefWidth="414.0" text="Client Registration" underline="true">
+               <font>
+                  <Font name="System Bold" size="39.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="134.0" layoutY="574.0" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #8DDFCB;" text="Save">
+               <font>
+                  <Font size="18.0" />
+               </font></JFXButton>
+            <TextField fx:id="txtemail" layoutX="85.0" layoutY="334.0" prefHeight="43.0" prefWidth="297.0" promptText="email" style="-fx-background-radius: 10px;" />
+            <TextField fx:id="txtContactNo" layoutX="85.0" layoutY="492.0" prefHeight="43.0" prefWidth="297.0" promptText="contactNo" style="-fx-background-radius: 10px;" />
+            <TextField fx:id="txtAddress" layoutX="85.0" layoutY="412.0" prefHeight="43.0" prefWidth="297.0" promptText="address" style="-fx-background-radius: 10px;" />
+            <TextField fx:id="txtName" layoutX="85.0" layoutY="264.0" prefHeight="43.0" prefWidth="297.0" promptText="name" style="-fx-background-radius: 10px;" />
+            <TextField fx:id="txtClientId" layoutX="85.0" layoutY="193.0" prefHeight="43.0" prefWidth="297.0" promptText="clientId" style="-fx-background-radius: 10px;" />
+            <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="134.0" layoutY="650.0" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #FF9130;" text="Update">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="134.0" layoutY="809.0" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #FF2171;" text="Delete">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="134.0" layoutY="728.0" onAction="#btnClearOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #FFD59E;" text="Clear">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="42.0" layoutY="28.0" prefHeight="72.0" prefWidth="1396.0" style="-fx-border-color: #F11A7B; -fx-background-color: #FFB7B7; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+         <children>
+            <TextField fx:id="txtSearch" layoutX="8.0" layoutY="15.0" onAction="#txtSearchOnAction" prefHeight="43.0" prefWidth="321.0" promptText="       search here" style="-fx-background-radius: 30px;" />
+            <Label layoutX="1007.0" layoutY="15.0" prefHeight="43.0" prefWidth="116.0" text="Date" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblCustomer" layoutX="552.0" layoutY="145.0" prefHeight="329.0" prefWidth="1008.0" style="-fx-background-color: FFDFDF; -fx-border-color: #F11A7B;">
+         <columns>
+            <TableColumn fx:id="colId" minWidth="20.0" prefWidth="108.0" style="-fx-background-color: FFDEDE; -fx-border-color: #F11A7B;" text="client_id" />
+            <TableColumn fx:id="colName" minWidth="20.0" prefWidth="172.0" style="-fx-background-color: FFDEDE; -fx-border-color: #F11A7B;" text="name" />
+            <TableColumn fx:id="colEmail" minWidth="20.0" prefWidth="238.0" style="-fx-background-color: FFDEDE; -fx-border-color: #F11A7B;" text="email" />
+            <TableColumn fx:id="colAddress" minWidth="20.0" prefWidth="290.0" style="-fx-background-color: FFDEDE; -fx-border-color: #F11A7B;" text="address" />
+            <TableColumn fx:id="colTel" minWidth="20.0" prefWidth="210.0" style="-fx-background-color: FFDEDE; -fx-border-color: #860A35;" text="contactInfo" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="btnGenerate" buttonType="RAISED" layoutX="579.0" layoutY="542.0" onAction="#btnGenerateOnAction" prefHeight="43.0" prefWidth="161.0" style="-fx-background-color: #C683D7; -fx-background-radius: 10px;" text="GENERATE">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+   </children>
+</AnchorPane>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="employeePane" onDragEntered="#datePickerOnEntered" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #FFCACC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.EmployeeFormController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1785.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="97.0" layoutY="183.0" prefHeight="786.0" prefWidth="419.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #F11A7B; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label layoutX="65.0" layoutY="26.0" prefHeight="55.0" prefWidth="289.0" text="Registration">
+               <font>
+                  <Font name="Rekha" size="45.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="103.0" layoutY="479.0" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #FFACC7;" text="save">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="102.0" layoutY="546.0" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #ED9ED6;" text="update">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="102.0" layoutY="626.0" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #AF2655;" text="delete">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="103.0" layoutY="704.0" onAction="#btnClearOnAction" prefHeight="43.0" prefWidth="177.0" style="-fx-background-color: #B4BDFF;" text="clear">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <TextField fx:id="txtEmpId" layoutX="54.0" layoutY="107.0" prefHeight="43.0" prefWidth="289.0" promptText="EmpId" style="-fx-border-color: #E95793;" />
+            <TextField fx:id="txtName" layoutX="54.0" layoutY="183.0" prefHeight="43.0" prefWidth="289.0" promptText="name" style="-fx-border-color: #E95793;" />
+            <TextField fx:id="txtemail" layoutX="54.0" layoutY="262.0" prefHeight="43.0" prefWidth="289.0" promptText="email" style="-fx-border-color: #E95793;" />
+            <TextField fx:id="txtContacNo" layoutX="54.0" layoutY="343.0" prefHeight="43.0" prefWidth="289.0" promptText="contactNo" style="-fx-border-color: #E95793;" />
+            <TextField fx:id="txtType" layoutX="54.0" layoutY="420.0" prefHeight="43.0" prefWidth="289.0" promptText="type" style="-fx-border-color: #E95793;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="97.0" layoutY="43.0" prefHeight="72.0" prefWidth="1439.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #F11A7B; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <TextField fx:id="txtSearch" layoutX="8.0" layoutY="15.0" onAction="#txtSearchOnAction" prefHeight="43.0" prefWidth="321.0" promptText="       search here" style="-fx-background-radius: 30px;" />
+            <Label fx:id="lblDate" layoutX="744.0" layoutY="15.0" prefHeight="43.0" prefWidth="186.0" />
+            <Label fx:id="lblDate" layoutX="1141.0" layoutY="15.0" prefHeight="43.0" prefWidth="163.0">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <Label layoutX="1035.0" layoutY="15.0" prefHeight="43.0" prefWidth="99.0" text="Date">
+               <font>
+                  <Font name="Rekha" size="22.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="571.0" layoutY="187.0" prefHeight="780.0" prefWidth="971.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #F11A7B; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <TableView fx:id="tblEmployee" layoutX="33.0" layoutY="149.0" prefHeight="600.0" prefWidth="842.0" style="-fx-background-color: # FFDFDF; -fx-border-color: #F11A7B;">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="108.0" style="-fx-background-color: #FFCACC; -fx-border-color: #F11A7B; -fx-font-family: Rekha; -fx-font-size: 18px;" text="EmpId" />
+                <TableColumn fx:id="colName" prefWidth="172.0" style="-fx-background-color: #FFCACC; -fx-border-color: #F11A7B; -fx-font-family: Rekha; -fx-font-size: 18px;" text="name" />
+                  <TableColumn fx:id="colEmail" prefWidth="196.0" style="-fx-background-color: #FFCACC; -fx-border-color: #F11A7B; -fx-font-family: Rekha; -fx-font-size: 18px;" text="email" />
+                  <TableColumn fx:id="colContact" prefWidth="172.0" style="-fx-background-color: #FFCACC; -fx-border-color: #F11A7B; -fx-font-family: Rekha; -fx-font-size: 18px;" text="contactInfo" />
+                  <TableColumn fx:id="colType" prefWidth="192.0" style="-fx-background-color: #FFCACC; -fx-border-color: #F11A7B; -fx-font-family: Rekha; -fx-font-size: 18px;" text="type" />
+              </columns>
+            </TableView>
+            <Label layoutX="56.0" layoutY="16.0" prefHeight="43.0" prefWidth="481.0" text="Employee Details">
+               <font>
+                  <Font name="Rekha" size="39.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="136.0" fitWidth="139.0" layoutX="692.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/office.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

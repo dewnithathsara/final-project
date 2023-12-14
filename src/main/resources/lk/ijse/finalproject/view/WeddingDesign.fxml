@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="weedingDesignPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: B4BDFF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.WeddingDesignController">
+   <children>
+      <AnchorPane layoutX="31.0" layoutY="122.0" prefHeight="825.0" prefWidth="795.0" style="-fx-background-color: white; -fx-background-radius: 30px;">
+         <children>
+            <JFXButton fx:id="btnClear" layoutX="409.0" layoutY="718.0" onAction="#btnClearOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #88BEF5;" text="clear">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnSave" layoutX="54.0" layoutY="718.0" onAction="#btnSaveOnAction" prefHeight="41.0" prefWidth="113.0" style="-fx-background-color: #BA90C6;" text="save">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnUpdate" layoutX="232.0" layoutY="718.0" onAction="#btnUpdateOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #BF68F6;" text="update">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnback" layoutX="577.0" layoutY="787.0" onAction="#btnBackOnAction" prefHeight="24.0" prefWidth="102.0" style="-fx-background-color: #6990E4;" text="&lt;&lt;" />
+            <JFXButton fx:id="btnDelete" layoutX="577.0" layoutY="718.0" onAction="#btnDeleteOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #CA4B7C;" text="delete">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font>
+            </JFXButton>
+            <TextField fx:id="txtTime" layoutX="54.0" layoutY="506.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;">
+               <font>
+                  <Font name="Rekha" size="17.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtStatus" layoutX="388.0" layoutY="628.0" prefHeight="41.0" prefWidth="260.0" style="-fx-border-color: #AA96DA;">
+               <font>
+                  <Font name="Rekha" size="17.0" />
+               </font>
+            </TextField>
+            <Label layoutX="54.0" layoutY="578.0" prefHeight="41.0" prefWidth="113.0" text="theme">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTheme" layoutX="54.0" layoutY="628.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;">
+               <font>
+                  <Font name="Rekha" size="17.0" />
+               </font>
+            </TextField>
+            <Label layoutX="393.0" layoutY="572.0" prefHeight="41.0" prefWidth="113.0" text="status">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="47.0" layoutY="88.0" prefHeight="41.0" prefWidth="113.0" text="Event Id :">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="163.0" prefHeight="41.0" prefWidth="95.0" text="type">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="47.0" layoutY="316.0" prefHeight="33.0" prefWidth="174.0" text="Location">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="388.0" layoutY="163.0" prefHeight="41.0" prefWidth="144.0" text="Appointment Id:">
+               <font>
+                  <Font name="Rekha" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblEvent" layoutX="167.0" layoutY="88.0" prefHeight="41.0" prefWidth="129.0">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="144.0" fitWidth="200.0" layoutX="563.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/pencil.jpeg" />
+               </image>
+            </ImageView>
+            <Label fx:id="clientId" layoutX="384.0" layoutY="506.0" prefHeight="41.0" prefWidth="254.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtType" layoutX="84.0" layoutY="349.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;" />
+      <TextField fx:id="txtLocation" layoutX="82.0" layoutY="485.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;">
+         <font>
+            <Font name="Rekha" size="17.0" />
+         </font>
+      </TextField>
+      <JFXComboBox fx:id="cmbApId" layoutX="421.0" layoutY="337.0" onAction="#cmbClientOnAction" prefHeight="41.0" prefWidth="174.0" unFocusColor="#aa96da" />
+      <Label layoutX="428.0" layoutY="552.0" prefHeight="41.0" prefWidth="113.0" text="Client Id">
+         <font>
+            <Font name="Rekha" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="89.0" layoutY="561.0" prefHeight="41.0" prefWidth="113.0" text="time">
+         <font>
+            <Font name="Rekha" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="418.0" layoutY="411.0" prefHeight="41.0" prefWidth="113.0" text="date">
+         <font>
+            <Font name="Rekha" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDate" layoutX="418.0" layoutY="485.0" prefHeight="41.0" prefWidth="254.0" style="-fx-border-color: #AA96DA;">
+         <font>
+            <Font name="Rekha" size="17.0" />
+         </font>
+      </TextField>
+      <AnchorPane layoutX="865.0" layoutY="120.0" prefHeight="825.0" prefWidth="652.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="369.0" fitWidth="369.0" layoutX="105.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/W.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="166.0" layoutY="413.0" prefHeight="67.0" prefWidth="369.0" text="OUR SERVICES" textFill="#32ae51f2">
+               <font>
+                  <Font name="Rekha" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="114.0" layoutY="501.0" prefHeight="48.0" prefWidth="271.0" text="Photoghers">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="114.0" layoutY="563.0" prefHeight="48.0" prefWidth="271.0" text="Decorations   and  Flowerists">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="114.0" layoutY="631.0" prefHeight="48.0" prefWidth="271.0" text="Entertaintment and more">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="113.0" fitWidth="113.0" layoutX="365.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/camera.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="138.0" fitWidth="137.0" layoutX="492.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/flower.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="76.0" fitWidth="95.0" layoutX="374.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/mic.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="196.0" layoutY="32.0" prefHeight="76.0" prefWidth="512.0" text="DESIGN    WEDDING" textFill="#0d1282">
+         <font>
+            <Font name="Rekha" size="35.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSearch" layoutX="1139.0" layoutY="29.0" onAction="#txtSearchOnAction" prefHeight="41.0" prefWidth="361.0" promptText="serach event id here" />
+   </children>
+</AnchorPane>

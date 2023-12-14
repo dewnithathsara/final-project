@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="collabaratingPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #DFCCFB;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.CollabaratingFormController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1785.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="78.0" layoutY="159.0" prefHeight="798.0" prefWidth="631.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+         <children>
+            <JFXComboBox fx:id="cmbEventId" layoutX="24.0" layoutY="132.0" prefHeight="24.0" prefWidth="135.0" promptText="event eids">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></JFXComboBox>
+            <JFXComboBox fx:id="cmbVendorId" layoutX="370.0" layoutY="196.0" prefHeight="24.0" prefWidth="135.0" promptText="vendorId">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></JFXComboBox>
+            <JFXComboBox fx:id="cmbServiceId" layoutX="24.0" layoutY="208.0" prefHeight="24.0" prefWidth="135.0" promptText="serviceId">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></JFXComboBox>
+            <Label layoutX="26.0" layoutY="335.0" prefHeight="43.0" prefWidth="117.0" style="-fx-font-family: Rekha; -fx-font-size: 21px;" text="date">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtDte" layoutX="24.0" layoutY="378.0" prefHeight="43.0" prefWidth="183.0" />
+            <Label layoutX="371.0" layoutY="335.0" prefHeight="43.0" prefWidth="117.0" style="-fx-font-family: Rekha; -fx-font-size: 21px;" text="time">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtTime" layoutX="371.0" layoutY="386.0" prefHeight="43.0" prefWidth="183.0" />
+            <Label layoutX="29.0" layoutY="429.0" prefHeight="33.0" prefWidth="117.0" style="-fx-font-family: Rekha; -fx-font-size: 21px;" text="description">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtDescription" layoutX="26.0" layoutY="469.0" prefHeight="46.0" prefWidth="533.0" />
+            <Label layoutX="26.0" layoutY="526.0" prefHeight="43.0" prefWidth="117.0" style="-fx-font-family: Rekha; -fx-font-size: 21px;" text="price">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtPrice" layoutX="25.0" layoutY="586.0" prefHeight="43.0" prefWidth="242.0" />
+            <JFXButton fx:id="btnSave" layoutX="29.0" layoutY="703.0" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="117.0" style="-fx-background-color: #8F43EE;" text="save">
+               <font>
+                  <Font name="Rekha" size="19.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnDelete" layoutX="462.0" layoutY="703.0" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="117.0" style="-fx-background-color: #DC3535;" text="delete">
+               <font>
+                  <Font name="Rekha" size="19.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnUpdate" layoutX="168.0" layoutY="703.0" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="117.0" style="-fx-background-color: #BC8CF2;" text="update">
+               <font>
+                  <Font name="Rekha" size="19.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnClear" layoutX="312.0" layoutY="703.0" onAction="#btnClearOnAction" prefHeight="43.0" prefWidth="117.0" style="-fx-background-color: #7868E6;" text="clear">
+               <font>
+                  <Font name="Rekha" size="19.0" />
+               </font></JFXButton>
+            <Label layoutX="84.0" layoutY="37.0" prefHeight="56.0" prefWidth="374.0" text="Collabatation Registration" underline="true">
+               <font>
+                  <Font name="Rekha" size="35.0" />
+               </font></Label>
+            <TextField fx:id="eid" layoutX="24.0" layoutY="270.0" prefHeight="43.0" prefWidth="183.0" promptText="eid" />
+            <TextField fx:id="vid" layoutX="371.0" layoutY="270.0" prefHeight="43.0" prefWidth="183.0" promptText="vid" />
+            <TextField fx:id="sid" layoutX="367.0" layoutY="586.0" prefHeight="43.0" prefWidth="183.0" promptText="sid" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="743.0" layoutY="170.0" prefHeight="353.0" prefWidth="515.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="120.0" layoutY="4.0" prefHeight="33.0" prefWidth="280.0" text="send invitation">
+               <font>
+                  <Font name="Rekha" size="43.0" />
+               </font></Label>
+            <JFXComboBox fx:id="cmbEmail" layoutX="37.0" layoutY="192.0" prefHeight="33.0" prefWidth="198.0" promptText="emails" />
+            <Label layoutX="37.0" layoutY="95.0" prefHeight="43.0" prefWidth="470.0" text="select vendor email to invite for the event">
+               <font>
+                  <Font name="Rekha" size="25.0" />
+               </font></Label>
+            <ImageView fitHeight="46.0" fitWidth="50.0" layoutX="244.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/gmail.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="69.0" fitWidth="87.0" layoutX="410.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+
+            </ImageView>
+            <JFXButton fx:id="btnSend" layoutX="348.0" layoutY="278.0" onAction="#btnSendOnAction" prefHeight="33.0" prefWidth="126.0" style="-fx-background-color: #C683D7; -fx-background-radius: 220px;" text="send">
+               <font>
+                  <Font name="Rekha" size="25.0" />
+               </font></JFXButton>
+         </children></AnchorPane>
+      <AnchorPane layoutX="747.0" layoutY="558.0" prefHeight="394.0" prefWidth="505.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="31.0" layoutY="35.0" prefHeight="56.0" prefWidth="225.0" text="Best Vendor">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="31.0" layoutY="141.0" prefHeight="56.0" prefWidth="143.0" text="vendor id">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblVendorId" layoutX="192.0" layoutY="141.0" prefHeight="56.0" prefWidth="143.0">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="31.0" layoutY="246.0" prefHeight="56.0" prefWidth="143.0" text="Company">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblNAme" layoutX="214.0" layoutY="240.0" prefHeight="56.0" prefWidth="143.0">
+               <font>
+                  <Font name="Rekha" size="21.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="91.0" fitWidth="117.0" layoutX="403.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/confetti.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="311.0" fitWidth="305.0" layoutX="1288.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/purple.jpeg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="100.0" layoutY="40.0" prefHeight="82.0" prefWidth="529.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 30px;">
+         <children>
+            <TextField fx:id="txtsearch" layoutX="32.0" layoutY="14.0" onAction="#txtSearchOnAction" prefHeight="56.0" prefWidth="321.0" promptText="       search here" style="-fx-border-color: #712B75; -fx-border-radius: 20px; -fx-background-radius: 20px;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="743.0" layoutY="40.0" prefHeight="82.0" prefWidth="397.0" style="-fx-background-color: #C9A7EB; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-radius: #712B75;">
+         <children>
+            <Label layoutX="27.0" layoutY="13.0" prefHeight="56.0" prefWidth="66.0" text="Date">
+               <font>
+                  <Font name="FreeSans Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbldate" layoutX="173.0" layoutY="16.0" prefHeight="50.0" prefWidth="164.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1268.0" layoutY="40.0" prefHeight="82.0" prefWidth="357.0" style="-fx-background-color: #C9A7EB; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-radius: #712B75;">
+         <children>
+            <Label layoutX="27.0" layoutY="13.0" prefHeight="56.0" prefWidth="66.0" text="Time">
+               <font>
+                  <Font name="FreeSans Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTime" layoutX="143.0" layoutY="16.0" prefHeight="50.0" prefWidth="164.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="1288.0" layoutY="216.0" prefHeight="72.0" prefWidth="305.0" text="click Here to get report">
+         <font>
+            <Font name="Rekha" size="29.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="56.0" fitWidth="75.0" layoutX="1368.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/downarrow.jpeg" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnprint" layoutX="1352.0" layoutY="401.0" onAction="#btnPrintOnAction" prefHeight="43.0" prefWidth="103.0" style="-fx-background-color: B15EFF;" text="genarate">
+         <font>
+            <Font name="Rekha" size="19.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

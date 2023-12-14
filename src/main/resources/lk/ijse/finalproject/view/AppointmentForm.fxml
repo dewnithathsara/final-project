@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AppointmentPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #FFCACC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.AppointmentFormController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1785.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="390.0" layoutY="125.0" prefHeight="784.0" prefWidth="698.0" style="-fx-background-color: #FFB7B7; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #F11A7B;">
+         <children>
+            <Label layoutX="147.0" layoutY="31.0" prefHeight="119.0" prefWidth="310.0" text="Appointment" textAlignment="JUSTIFY" underline="true">
+               <font>
+                  <Font name="System Bold" size="39.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnMakeAppointment" buttonType="RAISED" layoutX="25.0" layoutY="610.0" onAction="#btnMakeAppointOnAction" prefHeight="43.0" prefWidth="161.0" style="-fx-background-color: #8DDFCB;" text="make appointment" />
+            <TextField fx:id="txtStatus" layoutX="5.0" layoutY="407.0" prefHeight="43.0" prefWidth="297.0" promptText="status" style="-fx-background-radius: 10px; -fx-border-color: #F11A7B; -fx-border-radius: 10px;" />
+            <TextField fx:id="txtDate" layoutX="5.0" layoutY="503.0" prefHeight="43.0" prefWidth="297.0" promptText="date" style="-fx-background-radius: 10px; -fx-border-color: #F11A7B; -fx-border-radius: 10px;" />
+            <TextField fx:id="txtfee" layoutX="375.0" layoutY="407.0" prefHeight="43.0" prefWidth="297.0" promptText="fee" style="-fx-background-radius: 10px; -fx-border-color: #F11A7B; -fx-border-radius: 10px;" />
+            <TextField fx:id="txtTime" layoutX="374.0" layoutY="503.0" prefHeight="43.0" prefWidth="297.0" promptText="time" style="-fx-background-radius: 10px; -fx-border-color: #F11A7B; -fx-border-radius: 10px;" />
+            <Label fx:id="lblName" layoutX="378.0" layoutY="304.0" prefHeight="52.0" prefWidth="289.0" />
+            <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="251.0" layoutY="610.0" onAction="#btnClearOnAction" prefHeight="43.0" prefWidth="169.0" style="-fx-background-color: #FFD59E;" text="clear" />
+            <JFXButton fx:id="btnInvoice" layoutX="474.0" layoutY="610.0" onAction="#btnInvoiceOnAction" prefHeight="43.0" prefWidth="175.0" style="-fx-background-color: #F1B4BB;" text="Get Report" />
+            <TextField fx:id="textaid" layoutX="9.0" layoutY="321.0" prefHeight="43.0" prefWidth="297.0" promptText="appointment id" style="-fx-border-color: #F11A7B; -fx-background-radius: 10px; -fx-border-radius: 10px;" />
+            <TextField fx:id="textCLentId" layoutX="373.0" layoutY="319.0" prefHeight="43.0" prefWidth="289.0" promptText="client id" style="-fx-border-color: #F11A7B; -fx-border-radius: 10px; -fx-background-radius: 10px;" />
+            <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="255.0" layoutY="689.0" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="161.0" style="-fx-background-color: #FF9130;" text="update" />
+            <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="481.0" layoutY="680.0" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="161.0" style="-fx-background-color: #FF2171;" text="delete" />
+            <Label fx:id="lblApId" layoutX="209.0" layoutY="150.0" prefHeight="43.0" prefWidth="126.0" />
+            <Label fx:id="lblAppId" layoutX="12.0" layoutY="150.0" prefHeight="43.0" prefWidth="187.0" text="Appointment Id:">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comBoxClientId" layoutX="407.0" layoutY="148.0" onAction="#cmbClientOnAction" prefHeight="43.0" prefWidth="221.0" promptText="set cus id" />
+            <Label fx:id="lblclientName" layoutX="186.0" layoutY="233.0" prefHeight="52.0" prefWidth="104.0">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="250.0" prefHeight="43.0" prefWidth="138.0" text="client Name" />
+            <ImageView fitHeight="119.0" fitWidth="96.0" layoutX="587.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/butterfly.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="26.0" layoutY="28.0" prefHeight="72.0" prefWidth="1568.0" style="-fx-background-color: #FFB7B7; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #F11A7B;">
+         <children>
+            <TextField fx:id="txtSearch" layoutX="32.0" layoutY="15.0" onAction="#txtSearchOnAction" prefHeight="43.0" prefWidth="297.0" promptText="       search here" style="-fx-background-radius: 30px; -fx-border-color: #DA0C81; -fx-border-radius: 30px;" />
+            <Label fx:id="lblDate" layoutX="1284.0" layoutY="15.0" prefHeight="43.0" prefWidth="169.0" />
+            <Label layoutX="1155.0" layoutY="15.0" prefHeight="43.0" prefWidth="89.0" text="Date">
+               <font>
+                  <Font name="DejaVu Sans Mono Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1100.0" layoutY="371.0" prefHeight="65.0" prefWidth="0.0" />
+   </children>
+</AnchorPane>

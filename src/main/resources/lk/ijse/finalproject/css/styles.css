@@ -1,0 +1,11 @@
+.loginPane {
+	-fx-background-color: linear-gradient(to left bottom, #EAB0D9,#D7BBF5,#F1D4E5);
+	-fx-background-duration:  0.9s ease infinite;
+	-fx-transform: revert;
+	-fx-transition: margin-left 0.8s ease-in-out 0.5s;
+
+
+}
+/**/
+
+

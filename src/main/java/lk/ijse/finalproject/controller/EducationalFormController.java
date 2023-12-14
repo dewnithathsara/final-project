@@ -1,0 +1,206 @@
+package lk.ijse.finalproject.controller;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import lk.ijse.finalproject.dto.AppointmentDto;
+import lk.ijse.finalproject.dto.EventDesignDto;
+import lk.ijse.finalproject.model.AppointmentModel;
+import lk.ijse.finalproject.model.EventDesignModel;
+import lk.ijse.finalproject.util.Navigation;
+import lk.ijse.finalproject.util.Route;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+public class EducationalFormController {
+    public AnchorPane educationalPane;
+    public Label lblEvent;
+    public TextField txtType;
+    public TextField txtLocation;
+    public JFXComboBox cmbApId;
+    public Label clientId;
+    public TextField txtTime;
+    public TextField txtDate;
+    public TextField txtTheme;
+    public JFXButton btnSave;
+    public JFXButton btnUpdate;
+    public JFXButton btnDelete;
+    public JFXButton btnClear;
+
+    public EventDesignModel eventDesignModel=new EventDesignModel();
+    public AppointmentModel appointmentModel=new AppointmentModel();
+    public JFXButton btnback;
+    public TextField txtStatus;
+    public AnchorPane eduicationalpane;
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        generateNextEventDesignCode();
+        loadAllAppointmentId();
+    }
+    private void loadAllAppointmentId() {
+        ObservableList<String> oblist = FXCollections.observableArrayList();
+        try {
+            List<AppointmentDto> dtos = appointmentModel.getAllAppointment();
+            for (AppointmentDto appointmentDto : dtos) {
+                oblist.add(appointmentDto.getaId());
+            }
+            cmbApId.setItems(oblist);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void generateNextEventDesignCode() throws SQLException, ClassNotFoundException {
+        try{
+            String eid=eventDesignModel.generateEventDesignId();
+            lblEvent.setText(eid);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnSaveOnAction(ActionEvent actionEvent) {
+        try {
+            String eid = eventDesignModel.generateEventDesignId();
+            lblEvent.setText(eid);
+            String type = txtType.getText();
+            String location = txtLocation.getText();
+            String aId = String.valueOf(cmbApId.getValue());
+            LocalTime time = LocalTime.parse(txtTime.getText());
+            LocalDate date = LocalDate.parse((txtDate.getText()));
+            String theme = txtTheme.getText();
+
+
+            String status=txtStatus.getText();
+
+
+            var dto = new EventDesignDto(eid, type, location, aId, time, date, theme,status);
+            boolean isAdded = eventDesignModel.saveEvent(dto);
+            if (isAdded) {
+                new Alert(Alert.AlertType.CONFIRMATION, "educational event is added").showAndWait();
+
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "educational event isn't added").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+        String id = lblEvent.getText();
+        String type = txtType.getText();
+        String location = txtLocation.getText();
+        String aId = String.valueOf(cmbApId.getValue());
+        LocalTime time = LocalTime.parse(txtTime.getText());
+        LocalDate date = LocalDate.parse((txtDate.getText()));
+        String theme = txtTheme.getText();
+        String status=txtStatus.getText();
+
+
+        var dto = new EventDesignDto(id, type, location, aId, time, date, theme,status);        try {
+            boolean isUpdated = eventDesignModel.updateEvent(dto);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.CONFIRMATION, "educational event event is updated").showAndWait();
+
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "educational event isn't updated").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    public void btnDeleteOnAction(ActionEvent actionEvent) {
+        String id=lblEvent.getText();
+        try{
+            boolean isDeleted=eventDesignModel.deletEevent(id);
+            if(isDeleted){
+                new Alert(Alert.AlertType.CONFIRMATION,"educational event is deleted").show();
+            }else{
+                new Alert(Alert.AlertType.CONFIRMATION," educational event is not deleted");
+            }
+        }catch(Exception e){
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+    }
+
+    public void btnClearOnAction(ActionEvent actionEvent) {
+        clearFields();
+    }
+    private void clearFields() {
+        txtDate.setText("");
+        txtTime.setText("");
+        txtLocation.setText("");
+        txtType.setText("");
+        txtTheme.setText("");
+    }
+
+    public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
+       Navigation.navigate(Route.EVENT_DESIGN,educationalPane);
+    }
+    private boolean validateFields() {
+        String eventRegex="^Z\\d{3,}$";
+        String locationRegex="^[A-Za-z0-9\\s]{1,100}$";
+        String timeRegex ="^([01]\\d|2[0-3]):[0-5]\\d$";
+        String statusRegex ="^[A-Za-z]{1,20}$";
+        String dateRegex="^\\d{4}-\\d{2}-\\d{2}$";
+
+        String typeRegex= "^[A-Za-z]{1,20}$";
+        String themeRegex="^[A-Za-z\\s]{1,100}$";
+
+        if (!validate(txtTheme.getText(), themeRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid theme format. Please enter a valid number.").show();
+            return false;
+        }
+
+        if (!validate(txtLocation.getText(), locationRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid description format. Please enter a valid description.").show();
+            return false;
+        }
+        if (!validate(txtDate.getText(), dateRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid conId format. Please enter a valid description.").show();
+            return false;
+        }
+        if (!validate(txtStatus.getText(), statusRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid clientId format. Please enter a valid description.").show();
+            return false;
+        }
+        if (!validate(txtType.getText(), typeRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid clientId format. Please enter a valid description.").show();
+            return false;
+        }
+        if (!validate(txtTime.getText(), timeRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid clientId format. Please enter a valid description.").show();
+            return false;
+        }
+        if (!validate(txtDate.getText(), dateRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid clientId format. Please enter a valid description.").show();
+            return false;
+        }
+        /*if (!validate(eventId.getText(), eventRegex)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid clientId format. Please enter a valid description.").show();
+            return false;
+        }*/
+        return true;
+    }
+    private boolean validate(String input, String regex) {
+        return input.matches(regex);
+    }
+
+
+}
+
+
+

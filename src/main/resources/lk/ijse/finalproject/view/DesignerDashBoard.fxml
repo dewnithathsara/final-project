@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="designerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.DesignerDashBoardController">
+   <children>
+      <AnchorPane prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: white;">
+         <children>
+            <JFXButton fx:id="btnHome" buttonType="RAISED" layoutX="11.0" layoutY="276.0" onAction="#btnHomeOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #8CABFF;" text="HOME" />
+            <JFXButton fx:id="btnConsulting" buttonType="RAISED" layoutX="11.0" layoutY="326.0" onAction="#btnConsultingOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #8CABFF;" text="Customer consuiting" />
+            <JFXButton fx:id="btnEventDesign" buttonType="RAISED" layoutX="11.0" layoutY="378.0" onAction="#btnEventOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #8CABFF;" text="Event Design" />
+            <JFXButton fx:id="btnLogOut" buttonType="RAISED" layoutX="11.0" layoutY="823.0" onAction="#btnLogoutOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #8CABFF;" text="LOG OUT" />
+            <ImageView fitHeight="190.0" fitWidth="228.0" layoutX="36.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/designer.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="inPane" layoutX="300.0" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #C2D9FF;">
+         <children>
+            <AnchorPane fx:id="dpane" prefHeight="1080.0" prefWidth="1620.0">
+               <children>
+                  <AnchorPane layoutX="37.0" layoutY="218.0" prefHeight="732.0" prefWidth="1089.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <TableView fx:id="tblEventTabl" layoutX="61.0" layoutY="189.0" prefHeight="470.0" prefWidth="857.0">
+                          <columns>
+                            <TableColumn fx:id="colEid" prefWidth="75.0" text="eid" />
+                            <TableColumn fx:id="colType" prefWidth="134.0" text="type" />
+                              <TableColumn fx:id="colLocation" prefWidth="170.0" text="location" />
+                              <TableColumn fx:id="colTime" prefWidth="145.0" text="time" />
+                              <TableColumn fx:id="coltheme" prefWidth="160.0" text="theme" />
+                              <TableColumn fx:id="colStatus" prefWidth="174.0" text="event_status" />
+                          </columns>
+                        </TableView>
+                        <DatePicker fx:id="datePicker" layoutX="61.0" layoutY="109.0" onAction="#filterbyDateOnActoin" prefHeight="36.0" prefWidth="210.0" promptText="set date here" />
+                        <Label layoutX="61.0" layoutY="33.0" prefHeight="69.0" prefWidth="288.0" text="Select a date here">
+                           <font>
+                              <Font name="Rekha" size="31.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="859.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/flower.jpeg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="1141.0" layoutY="265.0" prefHeight="152.0" prefWidth="321.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="20.0" layoutY="14.0" prefHeight="43.0" prefWidth="210.0" text=" consulting fee">
+                           <font>
+                              <Font name="Rekha" size="26.0" />
+                           </font></Label>
+                        <Label fx:id="lblfee" layoutX="55.0" layoutY="76.0" prefHeight="69.0" prefWidth="140.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="1149.0" layoutY="540.0" prefHeight="403.0" prefWidth="347.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="26.0" layoutY="31.0" prefHeight="43.0" prefWidth="140.0" text="Popularity">
+                           <font>
+                              <Font name="Rekha" size="26.0" />
+                           </font></Label>
+                        <Label fx:id="lblfistType" layoutX="36.0" layoutY="86.0" prefHeight="56.0" prefWidth="225.0">
+                           <font>
+                              <Font name="Rekha" size="18.0" />
+                           </font></Label>
+                        <ImageView fitHeight="206.0" fitWidth="123.0" layoutX="176.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/ring.jpeg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="isCompleted" layoutX="37.0" layoutY="40.0" prefHeight="104.0" prefWidth="363.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="24.0" prefHeight="69.0" prefWidth="200.0" text="completed events">
+                           <font>
+                              <Font name="Rekha" size="26.0" />
+                           </font></Label>
+                        <Label fx:id="lblcompeleted" layoutX="237.0" layoutY="31.0" prefHeight="56.0" prefWidth="71.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="474.0" layoutY="40.0" prefHeight="104.0" prefWidth="262.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="24.0" prefHeight="56.0" prefWidth="57.0" text="Date">
+                           <font>
+                              <Font name="Rekha" size="26.0" />
+                           </font></Label>
+                        <Label fx:id="lblDate" layoutX="85.0" layoutY="24.0" prefHeight="56.0" prefWidth="156.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="810.0" layoutY="40.0" prefHeight="104.0" prefWidth="262.0" style="-fx-background-color: #92B4EC; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="25.0" prefHeight="56.0" prefWidth="57.0" text="Time">
+                           <font>
+                              <Font name="Rekha" size="26.0" />
+                           </font></Label>
+                        <Label fx:id="lblTime" layoutX="98.0" layoutY="25.0" prefHeight="56.0" prefWidth="140.0" />
+                     </children>
+                  </AnchorPane>
+                  <TextField layoutX="1126.0" layoutY="64.0" prefHeight="56.0" prefWidth="321.0" promptText="       search here" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

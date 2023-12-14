@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="managerPane" onDragEntered="#datePickerOnEntered" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #FFCACC;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.ManagerDashboardController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1785.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="22.0" layoutY="130.0" prefHeight="848.0" prefWidth="1219.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <AnchorPane layoutX="724.0" layoutY="43.0" prefHeight="748.0" prefWidth="475.0" style="-fx-background-color: #FFC7C7; -fx-background-radius: 20px;">
+               <children>
+                  <Label layoutX="36.0" layoutY="24.0" prefHeight="72.0" prefWidth="385.0" text="             Assigning To Task">
+                     <font>
+                        <Font name="DejaVu Serif Bold" size="21.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnAssign" layoutX="67.0" layoutY="438.0" onAction="#AssignBtnOnAction" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #C683D7;" text="assign">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnUpdate" layoutX="283.0" layoutY="432.0" onAction="#updateBtnOnAction" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #ED9ED6;" text="update">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnDelete" layoutX="292.0" layoutY="540.0" onAction="#deleteBtnOnAction" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #AF2655;" text="delete">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnClear" layoutX="67.0" layoutY="547.0" onAction="#clearBtnOnAction" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #7C93C3;" text="clear">
+                     <font>
+                        <Font name="DejaVu Sans Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="39.0" layoutY="35.0" prefHeight="769.0" prefWidth="652.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
+               <children>
+                  <JFXComboBox fx:id="cmbSAid" layoutX="46.0" layoutY="231.0" onAction="#showAllEventDetailsOnAction" prefHeight="24.0" prefWidth="105.0" promptText="select Aid" style="-fx-border-color: #FF8F8F;" />
+                  <TableView fx:id="tblEventRole" layoutX="34.0" layoutY="369.0" prefHeight="228.0" prefWidth="584.0">
+                    <columns>
+                      <TableColumn fx:id="colEmpId" prefWidth="83.0" style="-fx-background-color: #DC8686;" text="empId" />
+                      <TableColumn fx:id="colTask" prefWidth="248.0" style="-fx-background-color: #DC8686;" text="task" />
+                        <TableColumn fx:id="colStatus" prefWidth="252.0" style="-fx-background-color: #DC8686;" text="status" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="14.0" layoutY="35.0" prefHeight="78.0" prefWidth="553.0" text="               Event Role Details" textAlignment="JUSTIFY" textFill="#d32f2f">
+                     <font>
+                        <Font name="Timmana Regular" size="36.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <JFXComboBox fx:id="cmbempId" layoutX="760.0" layoutY="153.0" prefHeight="24.0" prefWidth="129.0" promptText="empIds" />
+            <JFXComboBox fx:id="cmbaId" layoutX="1010.0" layoutY="153.0" prefHeight="24.0" prefWidth="129.0" promptText="aId" />
+            <TextField fx:id="txtTask" layoutX="760.0" layoutY="263.0" prefHeight="43.0" prefWidth="385.0" promptText="set task" />
+            <TextField fx:id="txtStatus" layoutX="760.0" layoutY="380.0" prefHeight="43.0" prefWidth="385.0" promptText="status" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="1339.0" layoutY="211.0" prefHeight="100.0" prefWidth="243.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="empCount" layoutX="19.0" layoutY="44.0" prefHeight="43.0" prefWidth="129.0" />
+            <Label layoutX="19.0" layoutY="14.0" prefHeight="30.0" prefWidth="129.0" text="Employee count">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane layoutX="22.0" layoutY="23.0" prefHeight="83.0" prefWidth="363.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <TextField fx:id="txtSearch" layoutX="21.0" layoutY="15.0" onAction="#txtSearchOnAction" prefHeight="43.0" prefWidth="315.0" promptText="       search here" style="-fx-background-radius: 30px;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1510.0" layoutY="23.0" prefHeight="89.0" prefWidth="275.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="lbltime" layoutX="125.0" layoutY="9.0" prefHeight="72.0" prefWidth="147.0" />
+            <Label layoutX="22.0" layoutY="9.0" prefHeight="72.0" prefWidth="94.0" text="time">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1339.0" layoutY="378.0" prefHeight="100.0" prefWidth="243.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="lblfee" layoutX="31.0" layoutY="50.0" prefHeight="43.0" prefWidth="129.0" />
+            <Label layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="129.0" text="Amount">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1339.0" layoutY="527.0" prefHeight="100.0" prefWidth="243.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="lblstates1" layoutX="31.0" layoutY="50.0" prefHeight="43.0" prefWidth="129.0" />
+            <Label layoutX="15.0" layoutY="12.0" prefHeight="30.0" prefWidth="138.0" text="Count (fully paid)">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1340.0" layoutY="690.0" prefHeight="100.0" prefWidth="243.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="lblstates2" layoutX="24.0" layoutY="50.0" prefHeight="43.0" prefWidth="129.0" />
+            <Label layoutX="32.0" layoutY="6.0" prefHeight="30.0" prefWidth="129.0" text="Count(not paid)">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="660.0" layoutY="20.0" prefHeight="89.0" prefWidth="431.0" style="-fx-background-color: #FFB7B7; -fx-border-color: #FF8F8F; -fx-background-radius: 20px; -fx-border-radius: 20px;">
+         <children>
+            <Label fx:id="lblCompletedEvent" layoutX="248.0" layoutY="9.0" prefHeight="72.0" prefWidth="147.0" />
+            <Label fx:id="lblCompleted" layoutX="14.0" layoutY="9.0" prefHeight="72.0" prefWidth="138.0" text="Appointments">
+               <font>
+                  <Font name="DejaVu Sans Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblDate" layoutX="1235.0" layoutY="35.0" prefHeight="43.0" prefWidth="186.0" style="-fx-border-radius: 10px; -fx-background-radius: 10px; -fx-background-color: green;" text="date" />
+   </children>
+</AnchorPane>

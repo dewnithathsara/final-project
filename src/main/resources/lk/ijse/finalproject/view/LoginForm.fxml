@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="loginPane" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.LoginFormController">
+   <children>
+      <AnchorPane layoutX="320.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="859.0" prefWidth="1151.0" style="-fx-background-color: white; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="127.0">
+         <children>
+            <Label layoutX="139.0" layoutY="46.0" prefHeight="53.0" prefWidth="342.0" text="Enchanted Events" textFill="#d06464">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="130.0" layoutY="149.0" prefHeight="554.0" prefWidth="384.0" style="-fx-background-color: #F1EFEF; -fx-border-radius: 20px; -fx-background-radius: 20px;">
+               <children>
+                  <PasswordField fx:id="txtPassword" layoutX="42.0" layoutY="114.0" prefHeight="53.0" prefWidth="285.0" promptText="password" style="-fx-border-color: #FF6AC2;" />
+                  <Text fx:id="txtForgetPassword" fill="#335cc3" layoutX="42.0" layoutY="215.0" onMouseClicked="#forgetOnMouseClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Forget password?" underline="true" wrappingWidth="131.0" />
+               </children></AnchorPane>
+            <ImageView fitHeight="547.0" fitWidth="540.0" layoutX="648.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/login.jpeg" />
+               </image>
+            </ImageView>
+            <TextField fx:id="txtUserName" layoutX="171.0" layoutY="186.0" prefHeight="53.0" prefWidth="285.0" promptText="username" style="-fx-border-color: #FF6AC2;" />
+            <JFXButton id="btnLogin" fx:id="btnLogin" buttonType="RAISED" layoutX="171.0" layoutY="390.0" onAction="#btnLoginOnAction" prefHeight="60.0" prefWidth="285.0" style="-fx-background-color: #F875AA;" text="Login">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnSignUp" buttonType="RAISED" layoutX="171.0" layoutY="539.0" onAction="#btnSignUpOnAction" prefHeight="60.0" prefWidth="285.0" style="-fx-background-color: #FFE5E5;" text="Sign up">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <Separator layoutX="325.0" layoutY="499.0" prefHeight="11.0" prefWidth="131.0" />
+            <Separator layoutX="171.0" layoutY="499.0" prefHeight="11.0" prefWidth="131.0" />
+            <Text layoutX="306.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="or">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

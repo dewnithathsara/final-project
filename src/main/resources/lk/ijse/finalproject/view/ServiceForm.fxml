@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="servicePane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #DFCCFB;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.ServiceFormController">
+   <children>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="1789.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="78.0" layoutY="234.0" prefHeight="745.0" prefWidth="645.0" style="-fx-background-color: #BEADFA; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="37.0" layoutY="290.0" prefHeight="43.0" prefWidth="111.0" text="package name:">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtPackageName" layoutX="210.0" layoutY="290.0" prefHeight="43.0" prefWidth="321.0" />
+            <Label layoutX="37.0" layoutY="373.0" prefHeight="43.0" prefWidth="111.0" text="descriptioin">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <TextField fx:id="txtDescription" layoutX="210.0" layoutY="373.0" prefHeight="43.0" prefWidth="321.0" />
+            <Label layoutX="37.0" layoutY="464.0" prefHeight="43.0" prefWidth="111.0" text="price">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></Label>
+            <JFXButton fx:id="btnSave" buttonType="RAISED" layoutX="37.0" layoutY="579.0" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="136.0" style="-fx-background-color: #8F43EE;" text="save">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <TextField fx:id="txtPrice" layoutX="210.0" layoutY="464.0" prefHeight="43.0" prefWidth="321.0" />
+            <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="188.0" layoutY="579.0" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="117.0" style="-fx-background-color: #B2A4FF;" text="update">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="480.0" layoutY="579.0" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="111.0" style="-fx-background-color: #DC3535;" text="delete">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="344.0" layoutY="579.0" onAction="#btnClearOnAction" prefHeight="43.0" prefWidth="111.0" style="-fx-background-color: #7868E6;" text="clear">
+               <font>
+                  <Font name="Rekha" size="18.0" />
+               </font></JFXButton>
+            <Label layoutX="72.0" layoutY="47.0" prefHeight="83.0" prefWidth="360.0" text="Service Registration">
+               <font>
+                  <Font name="Rekha" size="43.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="115.0" fitWidth="136.0" layoutX="463.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/calander.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="34.0" layoutY="202.0" prefHeight="32.0" prefWidth="117.0" text="Service id" />
+            <TextField fx:id="txtServiceId" layoutX="210.0" layoutY="196.0" prefHeight="43.0" prefWidth="321.0" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="758.0" layoutY="240.0" prefHeight="581.0" prefWidth="865.0" style="-fx-background-color: #BEADFA; -fx-background-radius: 20px;">
+         <children>
+            <TableView fx:id="tblservice" layoutX="14.0" layoutY="118.0" prefHeight="397.0" prefWidth="679.0">
+              <columns>
+                <TableColumn fx:id="colId" prefWidth="106.0" style="-fx-background-color: #E5D1FA;" text="sid" />
+                <TableColumn fx:id="colname" prefWidth="164.0" style="-fx-background-color: #E5D1FA;" text="package_name" />
+                  <TableColumn fx:id="coldescriprion" prefWidth="242.0" style="-fx-background-color: #E5D1FA;" text="description" />
+                  <TableColumn fx:id="colprice" prefWidth="166.0" style="-fx-background-color: #E5D1FA;" text="price" />
+              </columns>
+            </TableView>
+            <Label layoutX="39.0" layoutY="10.0" prefHeight="76.0" prefWidth="351.0" text="Service Details">
+               <font>
+                  <Font name="Rekha" size="40.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="113.0" fitWidth="150.0" layoutX="706.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/progress.jpeg" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane layoutX="1361.0" layoutY="36.0" prefHeight="90.0" prefWidth="278.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="11.0" layoutY="24.0" prefHeight="43.0" prefWidth="68.0" text="Date">
+               <font>
+                  <Font name="Noto Sans CJK JP Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbldate" layoutX="89.0" layoutY="24.0" prefHeight="43.0" prefWidth="175.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="873.0" layoutY="36.0" prefHeight="90.0" prefWidth="278.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+         <children>
+            <Label layoutX="14.0" layoutY="24.0" prefHeight="43.0" prefWidth="43.0" text="Time">
+               <font>
+                  <Font name="Noto Sans CJK JP Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblTime" layoutX="67.0" layoutY="24.0" prefHeight="43.0" prefWidth="182.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="186.0" layoutY="36.0" prefHeight="82.0" prefWidth="529.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 30px;">
+         <children>
+            <TextField fx:id="txtSearch" layoutX="32.0" layoutY="14.0" onAction="#txtSearchOnAction" prefHeight="56.0" prefWidth="321.0" promptText="       search here" style="-fx-border-color: #712B75; -fx-border-radius: 20px; -fx-background-radius: 20px;" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btngenerate" layoutX="800.0" layoutY="915.0" onAction="#btnGenerateOnAction" prefHeight="43.0" prefWidth="163.0" style="-fx-background-color: #AD7BE9;" text="generate">
+         <font>
+            <Font name="Rekha" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="87.0" layoutY="153.0" prefHeight="43.0" prefWidth="81.0" text="Service Id:">
+         <font>
+            <Font name="Rekha" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="serviceId" layoutX="227.0" layoutY="153.0" prefHeight="43.0" prefWidth="117.0" />
+   </children>
+</AnchorPane>

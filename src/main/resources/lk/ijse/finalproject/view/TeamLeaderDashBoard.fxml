@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="teamLeaderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.TeamLeaderDashBoardController">
+   <children>
+      <AnchorPane prefHeight="1080.0" prefWidth="300.0" style="-fx-background-color: white;">
+         <children>
+            <JFXButton fx:id="btnHome" buttonType="RAISED" layoutX="11.0" layoutY="276.0" onAction="#btnHomeOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #B2A4FF;" text="HOME" />
+            <JFXButton fx:id="btnVendors" buttonType="RAISED" layoutX="11.0" layoutY="326.0" onAction="#btnManageVendors" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #B2A4FF;" text="MANAGE VENDORS" />
+            <JFXButton fx:id="btnService" buttonType="RAISED" layoutX="11.0" layoutY="378.0" onAction="#btnServiceOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #B2A4FF;" text="MANAGE SERVICE" />
+            <JFXButton fx:id="btnCollabarating" buttonType="RAISED" layoutX="11.0" layoutY="445.0" onAction="#btnCollabaratingOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #B2A4FF;" text="VENDOR COLLABARATING" />
+            <JFXButton fx:id="btnLogOut" buttonType="RAISED" layoutX="11.0" layoutY="823.0" onAction="#btnLogOutOnAction" prefHeight="43.0" prefWidth="278.0" style="-fx-background-color: #B2A4FF;" text="LOG OUT" />
+            <ImageView fitHeight="239.0" fitWidth="222.0" layoutX="38.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/teamLeader.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="inpane" layoutX="300.0" prefHeight="1080.0" prefWidth="1620.0">
+         <children>
+            <AnchorPane fx:id="outPane" layoutY="1.0" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: #DFCCFB;">
+               <children>
+                  <TextField fx:id="txtsearch" layoutX="1058.0" layoutY="43.0" onAction="#searchOnAction" prefHeight="56.0" prefWidth="377.0" promptText="       search here" style="-fx-border-color: #C9A7EB; -fx-border-radius: 30px; -fx-background-radius: 30px;" />
+                  <AnchorPane layoutX="39.0" layoutY="224.0" prefHeight="720.0" prefWidth="984.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+                     <children>
+                        <TableView fx:id="tblCollabaraing" layoutX="35.0" layoutY="125.0" prefHeight="524.0" prefWidth="915.0" style="-fx-border-color: #C3ACD0;">
+                          <columns>
+                            <TableColumn fx:id="colSid" prefWidth="75.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="Sid" />
+                              <TableColumn fx:id="colVid" prefWidth="85.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="Vid" />
+                              <TableColumn fx:id="colFeedback" prefWidth="232.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="feedback" />
+                              <TableColumn fx:id="colTime" prefWidth="159.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="time" />
+                              <TableColumn fx:id="colDate" prefWidth="177.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="date" />
+                              <TableColumn fx:id="colPrice" prefWidth="186.0" style="-fx-background-color: #E5D4FF; -fx-border-color: #C3ACD0;" text="price" />
+                          </columns>
+                        </TableView>
+                        <JFXComboBox fx:id="cmbEvent" layoutX="35.0" layoutY="30.0" onAction="#cmbEventOnAction" prefHeight="56.0" prefWidth="163.0" promptText="set Event Id" style="-fx-font-family: Rekha; -fx-font-size: 18px;" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="376.0" layoutY="26.0" prefHeight="90.0" prefWidth="278.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="11.0" layoutY="24.0" prefHeight="43.0" prefWidth="68.0" text="Date">
+                           <font>
+                              <Font name="Rekha" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lbldate" layoutX="89.0" layoutY="24.0" prefHeight="43.0" prefWidth="175.0" style="-fx-font-family: Rekha; -fx-font-size: 18px;" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="692.0" layoutY="26.0" prefHeight="90.0" prefWidth="320.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="24.0" prefHeight="43.0" prefWidth="99.0" text="Time">
+                           <font>
+                              <Font name="Rekha" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTime" layoutX="113.0" layoutY="24.0" prefHeight="43.0" prefWidth="182.0" style="-fx-font-family: Rekha; -fx-font-size: 18px;" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="39.0" layoutY="26.0" prefHeight="90.0" prefWidth="300.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+                     <children>
+                        <Label layoutX="11.0" layoutY="24.0" prefHeight="43.0" prefWidth="209.0" text="Current Vendors count">
+                           <font>
+                              <Font name="Rekha" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="vendorCount" layoutX="231.0" layoutY="24.0" prefHeight="43.0" prefWidth="68.0" style="-fx-font-family: Rekha; -fx-font-size: 18px;" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="1095.0" layoutY="219.0" prefHeight="712.0" prefWidth="355.0" style="-fx-background-color: #C9A7EB; -fx-background-radius: 20px;">
+                     <children>
+                        <JFXListView fx:id="listview" layoutX="42.0" layoutY="114.0" prefHeight="509.0" prefWidth="272.0" style="-fx-font-family: Rekha; -fx-font-size: 18px;" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="39.0" layoutY="137.0" prefHeight="56.0" prefWidth="574.0" style="-fx-background-color: #C9A7EB;" text="Vendor Collabartion Details" underline="true">
+                     <font>
+                        <Font name="Rekha" size="43.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

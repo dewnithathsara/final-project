@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="concertPane" prefHeight="1080.0" prefWidth="1620.0" style="-fx-background-color: B4BDFF;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.finalproject.controller.ConcertFormController">
+   <children>
+      <AnchorPane layoutX="28.0" layoutY="68.0" prefHeight="938.0" prefWidth="795.0" style="-fx-background-color: white; -fx-background-radius: 30px;">
+         <children>
+            <JFXButton fx:id="btnClear" layoutX="648.0" layoutY="835.0" onAction="#btnClearOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #88BEF5;" text="clear" />
+            <JFXButton fx:id="btnSave" layoutX="61.0" layoutY="842.0" onAction="#btnSaveOnAction" prefHeight="41.0" prefWidth="113.0" style="-fx-background-color: #A696C8;" text="save">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnUpdate" layoutX="262.0" layoutY="842.0" onAction="#btnUpdateOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #BF68F6;" text="update">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnback" layoutX="648.0" layoutY="895.0" onAction="#btnBackOnAction" prefHeight="24.0" prefWidth="102.0" style="-fx-background-color: #6990E4;" text="&lt;&lt;" />
+            <JFXButton fx:id="btnDelete" layoutX="455.0" layoutY="835.0" onAction="#btnDeleteOnAction" prefHeight="41.0" prefWidth="102.0" style="-fx-background-color: #CA4B7C;" text="delete">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </JFXButton>
+            <TextField fx:id="txtTime" layoutX="54.0" layoutY="590.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;" />
+            <TextField fx:id="txtStatus" layoutX="376.0" layoutY="727.0" prefHeight="41.0" prefWidth="260.0" style="-fx-border-color: #AA96DA;" />
+            <Label layoutX="61.0" layoutY="677.0" prefHeight="41.0" prefWidth="113.0" text="theme">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtTheme" layoutX="54.0" layoutY="727.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;" />
+            <Label layoutX="386.0" layoutY="669.0" prefHeight="41.0" prefWidth="113.0" text="status">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="76.0" layoutY="218.0" prefHeight="41.0" prefWidth="113.0" text="Event Id :">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblEvent" layoutX="235.0" layoutY="218.0" prefHeight="41.0" prefWidth="129.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="278.0" prefHeight="41.0" prefWidth="95.0" text="type">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtType" layoutX="84.0" layoutY="349.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;" />
+      <Label layoutX="95.0" layoutY="431.0" prefHeight="33.0" prefWidth="56.0" text="Location" />
+      <TextField fx:id="txtLocation" layoutX="82.0" layoutY="485.0" prefHeight="41.0" prefWidth="241.0" style="-fx-border-color: #AA96DA;" />
+      <JFXComboBox fx:id="cmbApId" layoutX="421.0" layoutY="337.0" prefHeight="41.0" prefWidth="174.0" unFocusColor="#aa96da" />
+      <Label layoutX="410.0" layoutY="278.0" prefHeight="41.0" prefWidth="129.0" text="Appointment Id:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="428.0" layoutY="552.0" prefHeight="41.0" prefWidth="113.0" text="Client Id">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="clientId" layoutX="428.0" layoutY="619.0" prefHeight="41.0" prefWidth="254.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="89.0" layoutY="561.0" prefHeight="41.0" prefWidth="113.0" text="time">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="418.0" layoutY="411.0" prefHeight="41.0" prefWidth="113.0" text="date">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDate" layoutX="418.0" layoutY="485.0" prefHeight="41.0" prefWidth="254.0" style="-fx-border-color: #AA96DA;" />
+      <AnchorPane layoutX="873.0" layoutY="67.0" prefHeight="938.0" prefWidth="703.0" style="-fx-background-color: white;" />
+   </children>
+</AnchorPane>
