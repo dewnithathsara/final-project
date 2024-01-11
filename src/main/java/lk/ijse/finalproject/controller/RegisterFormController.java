@@ -3,8 +3,6 @@ package lk.ijse.finalproject.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,19 +10,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import lk.ijse.finalproject.AppInitializer;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.UserBo;
 import lk.ijse.finalproject.dto.RegisterDto;
-import lk.ijse.finalproject.model.RegisterModel;
+import lk.ijse.finalproject.dao.RegisterModel;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
-import javafx.scene.control.ButtonType;
 
 
 import java.io.IOException;
 import java.sql.SQLException;
-
-import static javax.security.auth.callback.ConfirmationCallback.CANCEL;
-import static javax.security.auth.callback.ConfirmationCallback.OK;
 
 public class RegisterFormController {
 
@@ -43,7 +38,8 @@ public class RegisterFormController {
     private TextField txtPassword;
 
     
-    private RegisterModel registerModel=new RegisterModel();
+    //private RegisterModel registerModel=new RegisterModel();
+    UserBo userBo=(UserBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.USER);
 
     public Stage stage;
 
@@ -56,7 +52,7 @@ public class RegisterFormController {
     @FXML
     public void btnSignupOnActrion(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
 
-        String userId1 = registerModel.generateUserId();
+        String userId1 = userBo.generateUserId();
         userId.setText(userId1);
         String name = txtName.getText();
         String nameRegex = "^[A-Za-z\\s]{1,20}$";
@@ -74,7 +70,7 @@ public class RegisterFormController {
                 var dto = new RegisterDto(userId1, name, username, email, password);
 
                 try {
-                    boolean isRegister = registerModel.registerUser(dto);
+                    boolean isRegister = userBo.registerUser(dto);
                     if (isRegister) {
                         new Alert(Alert.AlertType.CONFIRMATION, "User registered successfully.").showAndWait();
                         clearFields();
@@ -90,7 +86,7 @@ public class RegisterFormController {
     }
     private void generateUserId() {
         try {
-            String uId = registerModel.generateUserId();
+            String uId = userBo.generateUserId();
             userId.setText(uId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

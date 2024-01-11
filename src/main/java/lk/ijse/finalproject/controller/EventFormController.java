@@ -12,19 +12,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.*;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.EventConDao;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.ClientDto;
 import lk.ijse.finalproject.dto.EventConDto;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.ClientModel;
-import lk.ijse.finalproject.model.EventModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.ClientDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventConDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class EventFormController {
@@ -42,9 +45,9 @@ public class EventFormController {
     public TextField txtType;
     public JFXButton btnSave;
 
-    public EventModel eventModel = new EventModel();
-    public AppointmentModel appointmentModel = new AppointmentModel();
-    public ClientModel clientModel = new ClientModel();
+    public EventConDao eventConDaoImpl = new EventConDaoImpl();
+    public AppointmentDao dao = new AppointmentDaoImpl();
+    public ClientDaoImpl clientModel = new ClientDaoImpl();
     public JFXButton btnUpdate;
     public JFXButton btnDelete;
     public JFXButton btnClear;
@@ -54,6 +57,11 @@ public class EventFormController {
     public TextField txtsDesc;
     public TextField txtScid;
     public TextField txtSConId;
+    AppointmentBo appointmentBo=(AppointmentBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
+
+
+    ConsultingBo consultingBo=(ConsultingBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CONSULTATION);
+    CustomerBo bo=(CustomerBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CUSTOMER);
 
 
     public void initialize() {
@@ -66,7 +74,7 @@ public class EventFormController {
 
     private void generateConId() {
         try {
-            String conId = eventModel.generateNextCode();
+            String conId = consultingBo.generateNextCode();
             lblConId.setText(conId);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -89,9 +97,9 @@ public class EventFormController {
     public void cmbSearchIdOnAction(ActionEvent actionEvent) {
         String aId = (String) cmbAid.getValue();
         try {
-            AppointmentDto appointmentDto = appointmentModel.searchId(aId);
+            AppointmentDto appointmentDto = appointmentBo.searchId(aId);
             lbelClientId.setText(appointmentDto.getcId());
-            ClientDto clientDto = appointmentModel.getCustomerInfo(appointmentDto.getcId());
+            ClientDto clientDto = bo.searchId(appointmentDto.getcId());
 
             lblClientName.setText(clientDto.getCustName());
         } catch (Exception e) {
@@ -102,7 +110,7 @@ public class EventFormController {
     public void loadAllComboAppoimentId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<AppointmentDto> appointmentDtos = appointmentModel.getAllAppointment();
+            List<AppointmentDto> appointmentDtos = appointmentBo.getAllAppointment();
             for (AppointmentDto appointmentDto : appointmentDtos) {
                 oblist.add(appointmentDto.getaId());
             }
@@ -119,14 +127,14 @@ public class EventFormController {
     public void btnSveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if (validateFields()) {
             // Proceed with the rest of the process
-            String conId = eventModel.generateNextCode();
+            String conId = consultingBo.generateNextCode();
             lblConId.setText(conId);
             double fee = Double.parseDouble(txtFee.getText());
             String description = txtDescription.getText();
             String cId = lbelClientId.getText();
             var dto = new EventConDto(conId, fee, description, cId);
             try {
-                boolean isSaved = eventModel.saveConsulting(dto);
+                boolean isSaved = consultingBo.saveConsulting(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Consulting success").show();
                 }
@@ -181,9 +189,9 @@ public class EventFormController {
 
             try {
                 var dto = new EventConDto(conId, fee, desc, cid);
-                eventModel.search(dto.getConId());
+                consultingBo.search(dto.getConId());
                 fillData(dto);
-                boolean isupdated = eventModel.updateConsulting(dto);
+                boolean isupdated = consultingBo.updateConsulting(dto);
                 if (isupdated) {
                     System.out.println("update is updated");
                     new Alert(Alert.AlertType.CONFIRMATION, "Consulting is updated").show();
@@ -201,7 +209,7 @@ public class EventFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id = lblConId.getText();
         try {
-            boolean isDeleted = eventModel.deleteEventCon(id);
+            boolean isDeleted = consultingBo.deleteEventCon(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "consulting is deleted").show();
             } else {
@@ -234,7 +242,7 @@ public class EventFormController {
 
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String id = txtsearch.getText();
-        EventConDto dto = eventModel.search(id);
+        EventConDto dto = consultingBo.search(id);
         System.out.println("twinkiling watermelon");
         try {
             if (dto != null) {
@@ -272,7 +280,7 @@ public class EventFormController {
 
     private void getAllDetails(String id) throws SQLException, ClassNotFoundException {
         System.out.println("whaaaaaaa");
-        EventConDto eventConDto = eventModel.getAllDetails(id);
+        EventConDto eventConDto = consultingBo.getAllDetails(id);
         txtSConId.setText(eventConDto.getConId());
         txtScid.setText(eventConDto.getcId());
         System.out.println("KIM DO HA");

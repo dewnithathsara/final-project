@@ -8,15 +8,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.AppointmentBo;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.ClientDao;
 import lk.ijse.finalproject.db.DbConnection;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.ClientDto;
 import lk.ijse.finalproject.dto.tm.AppointmentTm;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.ClientModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.ClientDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import net.sf.jasperreports.engine.*;
@@ -94,8 +98,10 @@ public class AppointmentFormController {
     private TableView<AppointmentTm> tblAppointment;
 
 
-    public ClientModel clientModel = new ClientModel();
-    public AppointmentModel appointmentModel = new AppointmentModel();
+    public ClientDao clientModel = new ClientDaoImpl();
+    //public AppointmentDao dao = new AppointmentDaoImpl();
+    AppointmentBo appointmentBo=(AppointmentBo)BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
+    CustomerBo bo=(CustomerBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CUSTOMER);
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -119,7 +125,8 @@ public class AppointmentFormController {
 
     private void generateAppointmentId() {
         try {
-            String appId = appointmentModel.generateNextAppId();
+            String appId = appointmentBo.generateNextAppId();
+            System.out.println("marry me");
             lblApId.setText(appId);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -139,7 +146,7 @@ public class AppointmentFormController {
         var dto = new AppointmentDto(appId, fee, status, date, time, cId);
 
         try {
-            boolean isupdate = appointmentModel.updateAppointment(dto);
+            boolean isupdate = appointmentBo.updateAppointment(dto);
             if (isupdate) {
                 new Alert(Alert.AlertType.CONFIRMATION, "appointment is updated").show();
                 clearFields();
@@ -157,7 +164,7 @@ public class AppointmentFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id = textaid.getText();
         try {
-            boolean isDeleted = appointmentModel.deleteAppointment(id);
+            boolean isDeleted = appointmentBo.deleteAppointment(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Appointment is deleted").show();
             } else {
@@ -188,7 +195,7 @@ public class AppointmentFormController {
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String serchId=txtSearch.getText();
 
-        AppointmentDto dto=appointmentModel.showAllAppointments(serchId);
+        AppointmentDto dto=appointmentBo.showAllAppointments(serchId);
         try {
             if (dto != null) {
                 fillData(dto);
@@ -237,7 +244,7 @@ public class AppointmentFormController {
 
     public void btnMakeAppointOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
-        String aId = appointmentModel.generateNextAppId();
+        String aId = appointmentBo.generateNextAppId();
         System.out.println(aId + "444444555555");
         textaid.setText(aId);
         System.out.println(aId + "9999999");
@@ -274,7 +281,7 @@ public class AppointmentFormController {
         System.out.println(dto.getaId() + "********");
         System.out.println(dto.getStatus() + "********");
         try {
-            boolean isMakeAppointment = appointmentModel.makeAppointment(dto);
+            boolean isMakeAppointment = appointmentBo.makeAppointment(dto);
             if (isMakeAppointment) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Appointment is made").show();
                 clearFields();
@@ -299,7 +306,7 @@ public class AppointmentFormController {
         String id = (String) comBoxClientId.getValue();
 
         try {
-            ClientDto clientDto = clientModel.searchId(id);
+            ClientDto clientDto = bo.searchId(id);
             lblclientName.setText(clientDto.getCustName());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -310,7 +317,7 @@ public class AppointmentFormController {
     private void getAllClientId() throws SQLException, ClassNotFoundException {
         ObservableList <String> oblist= FXCollections.observableArrayList();
         try{
-            List<ClientDto> clientDtos=clientModel.getAllCustomers();
+            List<ClientDto> clientDtos=bo.getAllCustomers();
             for(ClientDto dto:clientDtos){
                 oblist.add(dto.getcId());
             }

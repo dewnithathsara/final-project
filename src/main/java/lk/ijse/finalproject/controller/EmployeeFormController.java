@@ -11,10 +11,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import lk.ijse.finalproject.dto.ClientDto;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.EmployeeBo;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.dao.custom.EmployeeDao;
 import lk.ijse.finalproject.dto.EmployeeDto;
 import lk.ijse.finalproject.dto.tm.EmployeeTm;
-import lk.ijse.finalproject.model.EmployeeModel;
+import lk.ijse.finalproject.dao.impl.EmployeeDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import org.controlsfx.control.Notifications;
@@ -61,9 +64,10 @@ public class EmployeeFormController {
     @FXML
     private TableView<EmployeeTm> tblEmployee;
 
+    EmployeeBo employeeBo=(EmployeeBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EMPLOYEE);
 
 
-    private EmployeeModel employeeModel=new EmployeeModel();
+    private EmployeeDao dao =new EmployeeDaoImpl();
     public void initialize() {
         setCellValueFactory();
         loadAllEmployee();
@@ -108,7 +112,7 @@ public class EmployeeFormController {
 
             var dto = new EmployeeDto(EmpId, name, email, contact, type);
             try {
-                boolean isSaved = employeeModel.saveEmployee(dto);
+                boolean isSaved = employeeBo.saveEmployee(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "employee is saved").showAndWait();
                     clearFields();
@@ -135,7 +139,7 @@ public class EmployeeFormController {
 
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String id = txtSearch.getText();
-        EmployeeDto dto = employeeModel.search(id);
+        EmployeeDto dto = employeeBo.search(id);
         if (dto != null) {
             fillData(dto);
         } else {
@@ -168,7 +172,7 @@ public class EmployeeFormController {
             String type = txtType.getText();
             var dto = new EmployeeDto(id, name, email, contact, type);
             try {
-                boolean isUpdate = employeeModel.updateEmployee(dto);
+                boolean isUpdate = employeeBo.updateEmployee(dto);
                 if (isUpdate) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee is updated").showAndWait();
                     clearFields();
@@ -184,7 +188,7 @@ public class EmployeeFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id=txtEmpId.getText();
         try{
-            boolean isDelete=employeeModel.deleteEmployee(id);
+            boolean isDelete= employeeBo.deleteEmployee(id);
             if(isDelete){
                 loadAllEmployee();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee is deleted").show();
@@ -211,10 +215,10 @@ public class EmployeeFormController {
     }
     public void loadAllEmployee(){
 
-        var model=new EmployeeModel();
+
         ObservableList<EmployeeTm> obList= FXCollections.observableArrayList();
         try{
-            List<EmployeeDto> dtoList=model.getAllEmployee();
+            List<EmployeeDto> dtoList=employeeBo.getAllEmployee();
             for(EmployeeDto dto:dtoList){
                 obList.add(
                         new EmployeeTm(

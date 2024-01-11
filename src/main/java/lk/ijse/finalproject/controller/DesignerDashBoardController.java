@@ -9,11 +9,16 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.ConsultingBo;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.dao.custom.EventConDao;
+import lk.ijse.finalproject.dao.custom.EventDao;
 import lk.ijse.finalproject.dto.EventDesignDto;
 
 import lk.ijse.finalproject.dto.tm.EventTm;
-import lk.ijse.finalproject.model.EventDesignModel;
-import lk.ijse.finalproject.model.EventModel;
+import lk.ijse.finalproject.dao.impl.EventDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventConDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
@@ -31,7 +36,7 @@ public class DesignerDashBoardController {
     public JFXButton btnEventDesign;
     public AnchorPane isCompleted;
     public Label lblcompeleted;
-    public EventDesignModel eventDesignModel=new EventDesignModel();
+    public EventDao eventDaoImpl =new EventDaoImpl();
     public Label lblDate;
     public Label lblTime;
     public Label lblfee;
@@ -41,6 +46,7 @@ public class DesignerDashBoardController {
     public AnchorPane inPane;
     public AnchorPane designerPane;
     public DatePicker datePicker;
+    EventBo eventBo=(EventBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENT);
 
 
 
@@ -64,10 +70,11 @@ public class DesignerDashBoardController {
     @FXML
     private TableView<EventTm> tblEventTabl;
 
+    ConsultingBo consultingBo=(ConsultingBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CONSULTATION);
 
 
 
-    public EventModel eventModel=new EventModel();
+    public EventConDao eventConDaoImpl =new EventConDaoImpl();
 
     public void initialize(){
 
@@ -96,11 +103,11 @@ public class DesignerDashBoardController {
 
     }
     private void getAllCurrentEvent() {
-        var model = new EventDesignModel();
+        //var model = new EventDaoImpl();
         LocalDate date=datePicker.getValue();
         ObservableList<EventTm> obList = FXCollections.observableArrayList();
         try {
-            List<EventDesignDto> dtoList = model.getAllCurrentEvent(date);
+            List<EventDesignDto> dtoList = eventBo.getAllCurrentEvent(date);
             for (EventDesignDto dto : dtoList) {
                 obList.add(new EventTm(dto.getEid(),dto.getType(), dto.getLocation(),dto.getTime(),dto.getTheme(),dto.getStatus()));
             }
@@ -112,7 +119,7 @@ public class DesignerDashBoardController {
 
     private void getPopularEvent() {
         try{
-            String type=eventDesignModel.popularEvent();
+            String type= eventBo.popularEvent();
             lblfistType.setText(type);
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -122,7 +129,7 @@ public class DesignerDashBoardController {
 
     private void calculatefee() {
         try {
-            double fee = eventModel.total();
+            double fee = consultingBo.total();
             lblfee.setText(String.valueOf(fee));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -155,7 +162,7 @@ public class DesignerDashBoardController {
     private void getCompledtedEventCount() {
         String event_status="completed";
         try{
-            int count=   eventDesignModel.countCompletedEvent(event_status);
+            int count=   eventBo.countCompletedEvent(event_status);
             lblcompeleted .setText(String.valueOf(count));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.toString()).show();

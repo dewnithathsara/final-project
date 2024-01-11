@@ -1,58 +1,48 @@
-package lk.ijse.finalproject.model;
+package lk.ijse.finalproject.dao.impl;
 
 import javafx.geometry.Pos;
 import javafx.util.Duration;
+import lk.ijse.finalproject.dao.SqlUtil;
+import lk.ijse.finalproject.dao.custom.ClientDao;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
 import lk.ijse.finalproject.db.DbConnection;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.ClientDto;
-import lk.ijse.finalproject.dto.ServiceDto;
+import lk.ijse.finalproject.entity.Customer;
 import org.controlsfx.control.Notifications;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientModel {
-        public AppointmentModel appointmentModel=new AppointmentModel();
-        public AppointmentDto appointmentDto=null;
+public class ClientDaoImpl implements ClientDao {
 
 
-
-
-    public boolean saveCustomer(ClientDto dto) throws SQLException, ClassNotFoundException {
-        Connection connection= DbConnection.getInstance().getConnection();
-        String sql="INSERT INTO customer(cId,cust_name,email,address,contact) VALUE (?,?,?,?,?)";
-        PreparedStatement pstm=connection.prepareStatement(sql);
-        pstm.setString(1, dto.getcId());
-        pstm.setString(2,dto.getCustName());
-        pstm.setString(3,dto.getEmail());
-        pstm.setString(4, dto.getAddress());
-        pstm.setString(5, dto.getContact());
-
-        boolean isSaved=pstm.executeUpdate()>0;
-
-
-
-        return isSaved;
+    public AppointmentDaoImpl appointmentModel=new AppointmentDaoImpl();
+    public AppointmentDto appointmentDto=null;
+    @Override
+    public boolean saveCustomer(Customer entity) throws SQLException, ClassNotFoundException {
+        return SqlUtil.testQuery("INSERT INTO customer(cId,cust_name,email,address,contact) VALUE (?,?,?,?,?)",entity.getcId(),entity.getCustName(),entity.getEmail(),entity.getAddress(),entity.getContact());
     }
-
-    public boolean updateClient(ClientDto dto) throws SQLException, ClassNotFoundException {
+    // transaction part
+    @Override
+    public boolean updateClient(Customer entity) throws SQLException, ClassNotFoundException {
         Connection connection=null;
         boolean isUpdate=false;
        try {
             connection = DbConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
+
             String sql = "UPDATE customer SET cust_name=?,email=?,address=?,contact=? WHERE cId=?";
             PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, dto.getCustName());
-            pstm.setString(2, dto.getEmail());
-            pstm.setString(3, dto.getAddress());
-            pstm.setString(4, dto.getContact());
-            pstm.setString(5, dto.getcId());
+            pstm.setString(1, entity.getCustName());
+            pstm.setString(2, entity.getEmail());
+            pstm.setString(3, entity.getAddress());
+            pstm.setString(4, entity.getContact());
+            pstm.setString(5, entity.getcId());
 
             isUpdate = pstm.executeUpdate() > 0;
             System.out.println("no one");
@@ -86,7 +76,8 @@ public class ClientModel {
     }
         return isUpdate;
 }
-
+//transaction part
+    @Override
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = null;
         boolean isDeleted = false;
@@ -110,15 +101,14 @@ public class ClientModel {
         }
         return isDeleted;
     }
-    public List<ClientDto> getAllCustomers() throws SQLException, ClassNotFoundException {
-        Connection connection=DbConnection.getInstance().getConnection();
-        String sql="SELECT * FROM customer";
-        PreparedStatement pstm=connection.prepareStatement(sql);
-        ResultSet resultSet= pstm.executeQuery();
-        ArrayList<ClientDto> dtoList=new ArrayList<>();
+    @Override
+    public List<Customer> getAllCustomers() throws SQLException, ClassNotFoundException {
+
+        ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM customer");
+        ArrayList<Customer> entity=new ArrayList<>();
         while(resultSet.next()){
-            dtoList.add(
-                    new ClientDto(
+            entity.add(
+                    new Customer(
                             resultSet.getString(1),
                             resultSet.getString(2),
                             resultSet.getString(3),
@@ -127,48 +117,34 @@ public class ClientModel {
                     )
             );
         }
-
-       return dtoList;
+       return entity;
     }
-
-    public ClientDto searchId(String id) throws SQLException, ClassNotFoundException {
-        Connection connection=DbConnection.getInstance().getConnection();
-        String sql="SELECT * FROM customer WHERE cId=?";
-        PreparedStatement pstm=connection.prepareStatement(sql);
-        pstm.setString(1,id);
-        ResultSet resultSet= pstm.executeQuery();
-        ClientDto dto=null;
+    @Override
+    public Customer searchId(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM customer WHERE cId=?",id);
+        Customer entity=null;
         if(resultSet.next()) {
             String cId = resultSet.getString(1);
             String name = resultSet.getString(2);
             String email = resultSet.getString(3);
             String address = resultSet.getString(4);
             String contact = resultSet.getString(5);
-            dto = new ClientDto(cId, name, email, address, contact);
+            entity = new Customer(cId, name, email, address, contact);
         }
-        return dto;
-
+        return entity;
         }
-
-    public ClientDto search(String id) throws SQLException, ClassNotFoundException {
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement("select * from customer where cId=?");
-        pstm.setString(1,id);
-        ResultSet resultSet= pstm.executeQuery();
-
+    @Override
+    public Customer search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet= SqlUtil.testQuery("select * from customer where cId=?",id);
         if (resultSet.next()){
-
-            return new ClientDto(
+            return new Customer(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
                     resultSet.getString(5)
             );
-
         }
-
         return  null;
-
-
     }
 }

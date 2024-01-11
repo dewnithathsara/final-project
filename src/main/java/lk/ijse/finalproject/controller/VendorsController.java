@@ -13,9 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.UserBo;
+import lk.ijse.finalproject.bo.custom.VendorsBo;
+import lk.ijse.finalproject.dao.custom.VendorsDao;
 import lk.ijse.finalproject.dto.*;
-import lk.ijse.finalproject.model.RegisterModel;
-import lk.ijse.finalproject.model.VendorModel;
+import lk.ijse.finalproject.dao.RegisterModel;
+import lk.ijse.finalproject.dao.impl.VendorsDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import org.controlsfx.control.Notifications;
@@ -53,10 +58,9 @@ public class VendorsController {
     public TextField txtSearch;
     @FXML
     private JFXListView<String> listview;
+    VendorsBo bo=(VendorsBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.VENDOR);
+    UserBo userBo=(UserBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.USER);
 
-    public VendorModel vendorModel=new VendorModel();
-
-    public RegisterModel registerModel=new RegisterModel();
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -73,7 +77,7 @@ public class VendorsController {
 
     private void setCategoryCount() {
         try{
-            int count=   vendorModel.countCategories();
+            int count=   bo.countCategories();
             noOfcategory .setText(String.valueOf(count));
 
         }catch (Exception e){
@@ -84,7 +88,7 @@ public class VendorsController {
     private void setFloweristCount() {
         String category="flowerists";
         try{
-            int count=   vendorModel.countflowerists(category);
+            int count=   bo.countflowerists(category);
             noflower .setText(String.valueOf(count));
 
         }catch (Exception e){
@@ -96,7 +100,7 @@ public class VendorsController {
     private void setPhotographersCount() {
         String category="photography";
         try{
-            int count=   vendorModel.countphotographers(category);
+            int count=   bo.countphotographers(category);
             nopoto .setText(String.valueOf(count));
 
         }catch (Exception e){
@@ -137,7 +141,7 @@ public class VendorsController {
     }
 
     public void btnsaveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        String id=vendorModel.generateNextVendorId();
+        String id= bo.generateNextVendorId();
         String vid=txtVendorId.getText();
         String uid= String.valueOf(cmbUserId.getValue());
         String category=txtCategory.getText();
@@ -168,7 +172,7 @@ public class VendorsController {
 
         var dto=new VendorDto(vid,uid,category,name,email,contact);
         try{
-            boolean isSaved=vendorModel.saveVendor(dto);
+            boolean isSaved= bo.saveVendor(dto);
             if(isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"vendors is saved").show();
                 listAllCategories();
@@ -187,7 +191,7 @@ public class VendorsController {
 
     private void generateVendorId(){
         try{
-            String vendorId = vendorModel.generateNextVendorId();
+            String vendorId = bo.generateNextVendorId();
             lblvendorId.setText(vendorId);
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -197,7 +201,7 @@ public class VendorsController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id=lblvendorId.getText();
         try{
-            boolean isDeleted=vendorModel.deleteVendor(id);
+            boolean isDeleted= bo.deleteVendor(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"vendor is deleted").show();
             }else{
@@ -244,7 +248,7 @@ public class VendorsController {
         }
         var dto=new VendorDto(vendorId,uId,category,name,email,ContactInfo);
         try {
-            boolean isUpdate = vendorModel.updateVendor(dto);
+            boolean isUpdate = bo.updateVendor(dto);
             if (isUpdate) {
                 new Alert(Alert.AlertType.CONFIRMATION, "vendor is updated").show();
                 clearFields();
@@ -266,7 +270,7 @@ public class VendorsController {
     private void loadAlluserId() throws SQLException, ClassNotFoundException {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<RegisterDto>  userDto =registerModel.getAllusers();
+            List<RegisterDto>  userDto =userBo.getAllusers();
             for (RegisterDto registerDto : userDto) {
                 oblist.add(registerDto.getUid());
             }
@@ -285,7 +289,7 @@ public class VendorsController {
 
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String  id = txtSearch.getText();
-        VendorDto dto = VendorModel.search(id);
+        VendorDto dto = bo.search(id);
         if (dto!=null){
             fillData(dto);
         }else{
@@ -297,11 +301,8 @@ public class VendorsController {
             txtEmail.setText("");
             txtCategory.setText("");
             txtCompanyName.setText("");
-
         }
-
     }
-
     private void fillData(VendorDto vendorDto){
         txtCompanyName.setText(vendorDto.getName());
         txtCategory.setText(vendorDto.getCategory());

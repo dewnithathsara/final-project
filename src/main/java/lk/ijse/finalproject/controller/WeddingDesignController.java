@@ -11,11 +11,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.AppointmentBo;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.EventDao;
 import lk.ijse.finalproject.dto.AppointmentDto;
-import lk.ijse.finalproject.dto.ClientDto;
 import lk.ijse.finalproject.dto.EventDesignDto;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.EventDesignModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import org.controlsfx.control.Notifications;
@@ -39,8 +44,8 @@ public class WeddingDesignController {
     public TextField txtTheme;
     public JFXButton btnSave;
 
-    public EventDesignModel eventDesignModel=new EventDesignModel();
-    public AppointmentModel appointmentModel=new AppointmentModel();
+    public EventDao eventDaoImpl =new EventDaoImpl();
+    public AppointmentDao dao=new AppointmentDaoImpl();
     public JFXButton btnUpdate;
     public JFXButton btnDelete;
     public JFXButton btnClear;
@@ -48,27 +53,35 @@ public class WeddingDesignController {
     public TextField txtStatus;
     public TextField txtSearch;
     public TextField eventId;
+    AppointmentBo appointmentBo=(AppointmentBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
+    CustomerBo bo=(CustomerBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CUSTOMER);
+    EventBo eventBo=(EventBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENT);
 
 
-    public void initialize() throws SQLException, ClassNotFoundException {
+    public void initialize()  {
         generateNextEventDesignCode();
         loadAllAppointmentId();
     }
 
-    private void generateNextEventDesignCode() throws SQLException, ClassNotFoundException {
-        try{
-            String eid=eventDesignModel.generateEventDesignId();
-            lblEvent.setText(eid);
-        }catch (Exception e){
+    private void generateNextEventDesignCode()  {
+
+        String eid= null;
+        try {
+            eid = eventBo.generateEventDesignId();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        lblEvent.setText(eid);
+
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if(validateFields()) {
 
             try {
-                String eid = eventDesignModel.generateEventDesignId();
+                String eid = eventBo.generateEventDesignId();
                 lblEvent.setText(eid);
                 String type = txtType.getText();
                 String location = txtLocation.getText();
@@ -81,7 +94,7 @@ public class WeddingDesignController {
 
                 var dto = new EventDesignDto(eid, type, location, aId, time, date, theme, status);
 
-                boolean isAdded = eventDesignModel.saveEvent(dto);
+                boolean isAdded = eventBo.saveEvent(dto);
                 if (isAdded) {
                     new Alert(Alert.AlertType.CONFIRMATION, "wedding event is added").showAndWait();
 
@@ -96,7 +109,7 @@ public class WeddingDesignController {
     public void loadAllAppointmentId(){
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<AppointmentDto> dtos = appointmentModel.getAllAppointment();
+            List<AppointmentDto> dtos = appointmentBo.getAllAppointment();
             for (AppointmentDto appointmentDto : dtos) {
                 oblist.add(appointmentDto.getaId());
 
@@ -110,7 +123,7 @@ public class WeddingDesignController {
         String id = (String) cmbApId.getValue();
 
         try {
-            AppointmentDto appointmentDto = appointmentModel.searchId(id);
+            AppointmentDto appointmentDto = appointmentBo.searchId(id);
             clientId.setText(appointmentDto.getcId());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -132,7 +145,7 @@ public class WeddingDesignController {
 
 
         var dto = new EventDesignDto(id, type, location, aId, time, date, theme,status);        try {
-            boolean isUpdated = eventDesignModel.updateEvent(dto);
+            boolean isUpdated = eventBo.updateEvent(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "wedding event is updated").showAndWait();
 
@@ -149,7 +162,7 @@ public class WeddingDesignController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id=lblEvent.getText();
         try{
-            boolean isDeleted=eventDesignModel.deletEevent(id);
+            boolean isDeleted= eventBo.deletEevent(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Wedding is deleted").show();
             }else{
@@ -182,7 +195,7 @@ public class WeddingDesignController {
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String serchId=txtSearch.getText();
 
-        EventDesignDto dto=eventDesignModel.showAllAppointments(serchId);
+        EventDesignDto dto= eventBo.showAllAppointments(serchId);
         try {
             if (dto != null) {
                 fillData(dto);

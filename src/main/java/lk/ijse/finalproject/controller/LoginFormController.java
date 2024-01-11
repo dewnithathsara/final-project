@@ -7,23 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lk.ijse.finalproject.AppInitializer;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.bo.custom.UserBo;
 import lk.ijse.finalproject.dto.LoginDto;
-import lk.ijse.finalproject.model.LoginModel;
+import lk.ijse.finalproject.dao.LoginModel;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalTime;
 
 public class LoginFormController {
 
@@ -38,7 +37,8 @@ public class LoginFormController {
     @FXML
 
 
-    private LoginModel loginModel= new LoginModel();
+   // private LoginModel loginModel= new LoginModel();
+    UserBo userBo=(UserBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.USER);
 
 
 
@@ -59,7 +59,7 @@ public class LoginFormController {
             var dto = new LoginDto(username, password);
 
             try {
-                boolean isLogin = loginModel.userLogin(dto);
+                boolean isLogin = userBo.userLogin(dto);
                 System.out.println(isLogin);
                 System.out.println(username);
 
@@ -74,10 +74,7 @@ public class LoginFormController {
                 }
             } catch (SQLException e) {
                 System.out.println(" Meke SQl ex eka Mokdda: "+e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "SQL Error: " + e.getMessage()).show();
-            } catch (IOException e) {
-                System.out.println(" Meke IO ex eka Mokdda: "+e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "IO Error: " + e.getMessage()).show();
+                e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 System.out.println(" Meke Class Not Found ex eka Mokdda: "+e.getMessage());
                 new Alert(Alert.AlertType.ERROR, "Class Not Found: " + e.getMessage()).show();
@@ -86,17 +83,29 @@ public class LoginFormController {
     }
 
 
-    private void checkCredentials(String username) throws IOException {
+    private void checkCredentials(String username) {
         switch (username) {
             case "Manager":
                 System.out.println("login pane");
-                Navigation.navigate(Route.MANAGER_DASHBOARD, loginPane);
+                try {
+                    Navigation.navigate(Route.MANAGER_DASHBOARD, loginPane);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "Designer":
-                Navigation.navigate(Route.DESIGNER_DASHBOARD, loginPane);
+                try {
+                    Navigation.navigate(Route.DESIGNER_DASHBOARD, loginPane);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "TeamLeader":
-                Navigation.navigate(Route.TEAMLEADER_DASHBOARD, loginPane);
+                try {
+                    Navigation.navigate(Route.TEAMLEADER_DASHBOARD, loginPane);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             default:
                 System.out.println("Invalid username: " + username);

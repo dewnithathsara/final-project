@@ -12,12 +12,14 @@ module lk.ijse.finalproject {
     opens lk.ijse.finalproject to javafx.fxml;
     exports lk.ijse.finalproject;
     exports lk.ijse.finalproject.controller;
-    exports lk.ijse.finalproject.model;
+    exports lk.ijse.finalproject.dao;
     exports lk.ijse.finalproject.dto.tm ;
     exports lk.ijse.finalproject.dto ;
 
     opens lk.ijse.finalproject.controller to javafx.fxml;
     opens lk.ijse.finalproject.dto.tm to javafx.fxml;
-    opens lk.ijse.finalproject.model to javafx.fxml;
+    opens lk.ijse.finalproject.dao to javafx.fxml;
+    exports lk.ijse.finalproject.dao.impl;
+    opens lk.ijse.finalproject.dao.impl to javafx.fxml;
 
 }

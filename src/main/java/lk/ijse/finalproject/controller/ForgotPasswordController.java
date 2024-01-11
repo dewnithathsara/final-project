@@ -4,9 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.finalproject.dto.LoginDto;
 import lk.ijse.finalproject.dto.RegisterDto;
-import lk.ijse.finalproject.model.RegisterModel;
+import lk.ijse.finalproject.dao.RegisterModel;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 

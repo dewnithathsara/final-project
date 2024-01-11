@@ -9,10 +9,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.AppointmentBo;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.EventDao;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.EventDesignDto;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.EventDesignModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
@@ -36,10 +41,13 @@ public class ConcertFormController {
     public JFXButton btnUpdate;
     public JFXButton btnDelete;
     public JFXButton btnClear;
-    public EventDesignModel eventDesignModel=new EventDesignModel();
-    public AppointmentModel appointmentModel=new AppointmentModel();
+    public EventDao eventDaoImpl =new EventDaoImpl();
+    public AppointmentDao appointmentModel=new AppointmentDaoImpl();
     public JFXButton btnback;
     public TextField txtStatus;
+    AppointmentBo appointmentBo=(AppointmentBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
+    EventBo eventBo=(EventBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENT);
+
 
     public void initialize() throws SQLException, ClassNotFoundException {
         generateNextEventDesignCode();
@@ -48,7 +56,7 @@ public class ConcertFormController {
     private void loadAllAppointmentId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<AppointmentDto> dtos = appointmentModel.getAllAppointment();
+            List<AppointmentDto> dtos = appointmentBo.getAllAppointment();
             for (AppointmentDto appointmentDto : dtos) {
                 oblist.add(appointmentDto.getaId());
             }
@@ -60,7 +68,7 @@ public class ConcertFormController {
 
     private void generateNextEventDesignCode() throws SQLException, ClassNotFoundException {
         try{
-            String eid=eventDesignModel.generateEventDesignId();
+            String eid= eventBo.generateEventDesignId();
             lblEvent.setText(eid);
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -70,7 +78,7 @@ public class ConcertFormController {
     public void btnSaveOnAction(ActionEvent actionEvent) {
         if(validateFields()) {
             try {
-                String eid = eventDesignModel.generateEventDesignId();
+                String eid = eventBo.generateEventDesignId();
                 lblEvent.setText(eid);
                 String type = txtType.getText();
                 String location = txtLocation.getText();
@@ -84,7 +92,7 @@ public class ConcertFormController {
 
 
                 var dto = new EventDesignDto(eid, type, location, aId, time, date, theme, status);
-                boolean isAdded = eventDesignModel.saveEvent(dto);
+                boolean isAdded = eventBo.saveEvent(dto);
                 if (isAdded) {
                     new Alert(Alert.AlertType.CONFIRMATION, "concert event is added").showAndWait();
 
@@ -109,7 +117,7 @@ public class ConcertFormController {
 
 
         var dto = new EventDesignDto(id, type, location, aId, time, date, theme,status);        try {
-            boolean isUpdated = eventDesignModel.updateEvent(dto);
+            boolean isUpdated = eventBo.updateEvent(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "concert event is updated").showAndWait();
 
@@ -126,7 +134,7 @@ public class ConcertFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id=lblEvent.getText();
         try{
-            boolean isDeleted=eventDesignModel.deletEevent(id);
+            boolean isDeleted= eventBo.deletEevent(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"concert is deleted").show();
             }else{

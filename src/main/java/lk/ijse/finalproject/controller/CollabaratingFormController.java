@@ -5,20 +5,24 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.*;
+import lk.ijse.finalproject.dao.custom.CollabaratingDao;
+import lk.ijse.finalproject.dao.custom.EventDao;
+import lk.ijse.finalproject.dao.custom.ServiceDao;
+import lk.ijse.finalproject.dao.custom.VendorsDao;
 import lk.ijse.finalproject.db.DbConnection;
 import lk.ijse.finalproject.dto.*;
-import lk.ijse.finalproject.model.CollabaratingModel;
-import lk.ijse.finalproject.model.EventDesignModel;
-import lk.ijse.finalproject.model.ServiceModel;
-import lk.ijse.finalproject.model.VendorModel;
+import lk.ijse.finalproject.dao.impl.CollabaratingDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventDaoImpl;
+import lk.ijse.finalproject.dao.impl.ServiceDaoImpl;
+import lk.ijse.finalproject.dao.impl.VendorsDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import net.sf.jasperreports.engine.*;
@@ -33,7 +37,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.sql.SQLException;
-import java.text.BreakIterator;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -59,10 +62,10 @@ public class CollabaratingFormController {
     public JFXButton btnDelete;
     public JFXButton btnClear;
     public JFXButton btnCancel;
-    public EventDesignModel eventDesignModel=new EventDesignModel();
-    public ServiceModel serviceModel=new ServiceModel();
-    public VendorModel vendorModel=new VendorModel();
-    public CollabaratingModel collabaratingModel=new CollabaratingModel();
+    public EventDao eventDaoImpl =new EventDaoImpl();
+    public ServiceDao serviceDaoImpl =new ServiceDaoImpl();
+    public VendorsDao vendorsDaoImpl =new VendorsDaoImpl();
+   // public CollabaratingDao dao=new CollabaratingDaoImpl();
     public JFXButton btnUpdate;
     public JFXComboBox cmbEmail;
     public TableView tblBestCollabartion;
@@ -77,6 +80,12 @@ public class CollabaratingFormController {
     public Label lblVendorId;
     public Label lblNAme;
     public TextField txtsearch;
+
+    CollabaratingBo collabaratingBo=(CollabaratingBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.COLLABORATION);
+    EventBo eventBo=(EventBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENT);
+    ServiceBo serviceBo=(ServiceBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.SERVICE);
+    VendorsBo vendorsBo=(VendorsBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.VENDOR);
+
 
 
     //  BodyPart messageBodyPart1 = new MimeBodyPart();
@@ -115,7 +124,7 @@ public class CollabaratingFormController {
     private void loadAllEventId() throws SQLException, ClassNotFoundException {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            ArrayList<EventDesignDto> dtos = eventDesignModel.getAllCurrentEvents();
+            ArrayList<EventDesignDto> dtos = eventBo.getAllCurrentEvents();
             for (EventDesignDto dto : dtos) {
                 oblist.add(dto.getEid());
             }
@@ -130,7 +139,7 @@ public class CollabaratingFormController {
     private void loadAllServiceId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<ServiceDto> dto =serviceModel.getAllServices();
+            List<ServiceDto> dto = serviceBo.getAllServices();
             for (ServiceDto dtos : dto) {
                 oblist.add(dtos.getSid());
             }
@@ -145,7 +154,7 @@ public class CollabaratingFormController {
     private void loadAllVendorsId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<VendorDto> dto =vendorModel.getAllVendors();
+            List<VendorDto> dto = vendorsBo.getAllVendors();
             for (VendorDto dtos : dto) {
                 oblist.add(dtos.getId());
             }
@@ -159,7 +168,7 @@ public class CollabaratingFormController {
     private void loadAllEmail() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<VendorDto> dto =vendorModel.getAllVendors();
+            List<VendorDto> dto = vendorsBo.getAllVendors();
             for (VendorDto dtos : dto) {
                 oblist.add(dtos.getEmail());
             }
@@ -217,7 +226,7 @@ public class CollabaratingFormController {
      // Connection connection=null;
       try{
           //connection=
-          boolean isSaved=collabaratingModel.saveCollabaring(dto);
+          boolean isSaved=collabaratingBo.saveCollabaring(dto);
           if(isSaved){
               new Alert(Alert.AlertType.CONFIRMATION,"save collabarating").showAndWait();
               System.out.println("mmmmm");
@@ -288,7 +297,7 @@ public class CollabaratingFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id= String.valueOf(cmbEventId.getValue());
         try{
-            boolean isDeleted=collabaratingModel.deleteCollabaration(id);
+            boolean isDeleted=collabaratingBo.deleteCollabaration(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"collabaration is deleted").show();
             }else{
@@ -325,7 +334,7 @@ public class CollabaratingFormController {
             double price = Double.parseDouble(txtPrice.getText());
             var dto = new CollabaratingDto(sid, vid, eid, desc, time, date, price);
             try {
-                boolean isUpadted = collabaratingModel.updateCollobarating(dto);
+                boolean isUpadted = collabaratingBo.updateCollobarating(dto);
                 if (isUpadted) {
                     new Alert(Alert.AlertType.CONFIRMATION, "collobaration is updated").show();
                     clearFields();
@@ -359,7 +368,7 @@ public class CollabaratingFormController {
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
             String  id = txtsearch.getText();
-            CollabaratingDto dto = collabaratingModel.search(id);
+            CollabaratingDto dto = collabaratingBo.search(id);
             if (dto!=null){
                 fillData(dto);
             }else{

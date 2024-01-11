@@ -7,38 +7,35 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import lk.ijse.finalproject.dto.ServiceDto;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.dao.custom.ClientDao;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.controlsfx.control.Notifications;
 import lk.ijse.finalproject.db.DbConnection;
 import lk.ijse.finalproject.dto.ClientDto;
 import lk.ijse.finalproject.dto.tm.ClientTm;
-import lk.ijse.finalproject.model.ClientModel;
+import lk.ijse.finalproject.dao.impl.ClientDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class ClientFormController {
     public JFXButton btnManageClient;
     public JFXButton btnAppointment;
     public JFXButton btnLogOut;
-    public ClientModel clientModel = new ClientModel();
+    public ClientDao dao = new ClientDaoImpl();
     public TableColumn colTel1;
     public JFXButton btnGenerate;
     public JFXButton btnIncome;
@@ -81,6 +78,7 @@ public class ClientFormController {
     private TextField txtSearch;
     @FXML
     private TextField txtemail;
+    CustomerBo bo=(CustomerBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CUSTOMER);
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -110,7 +108,7 @@ public class ClientFormController {
 
             var dto = new ClientDto(clientId, name, email, address, contact);
             try {
-                boolean isSaved = clientModel.saveCustomer(dto);
+                boolean isSaved = bo.saveCustomer(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "customer is saved").showAndWait();
                     clearFields();
@@ -144,7 +142,7 @@ public class ClientFormController {
             String contact = txtContactNo.getText();
             var dto = new ClientDto(clientId, name, email, address, contact);
 
-                boolean isUpdate = clientModel.updateClient(dto);
+                boolean isUpdate = bo.updateClient(dto);
                 if (isUpdate) {
                     new Alert(Alert.AlertType.CONFIRMATION, "client is updated").show();
                     clearFields();
@@ -163,7 +161,7 @@ public class ClientFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id = txtClientId.getText();
         try {
-            boolean isDelete = clientModel.deleteCustomer(id);
+            boolean isDelete = bo.deleteCustomer(id);
             if (isDelete) {
                 new Alert(Alert.AlertType.CONFIRMATION, "CLIENT IS DELETED").show();
                 clearFields();
@@ -204,9 +202,9 @@ public class ClientFormController {
 
 
     public void loadAllCustomers() throws SQLException, ClassNotFoundException {
-        var model = new ClientModel();
+
         ObservableList<ClientTm> obList = FXCollections.observableArrayList();
-        List<ClientDto> dtoList = model.getAllCustomers();
+        List<ClientDto> dtoList = bo.getAllCustomers();
         try{
 
             for (ClientDto dto : dtoList) {
@@ -269,7 +267,7 @@ public class ClientFormController {
     @FXML
     void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String  id = txtSearch.getText();
-        ClientDto dto = clientModel.search(id);
+        ClientDto dto = bo.search(id);
         if (dto!=null){
             fillData(dto);
         }else{

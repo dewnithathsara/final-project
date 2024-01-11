@@ -11,13 +11,20 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.CollabaratingBo;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.EventBo;
+import lk.ijse.finalproject.bo.custom.VendorsBo;
+import lk.ijse.finalproject.dao.custom.CollabaratingDao;
+import lk.ijse.finalproject.dao.custom.EventDao;
+import lk.ijse.finalproject.dao.custom.VendorsDao;
 import lk.ijse.finalproject.dto.CollabaratingDto;
 import lk.ijse.finalproject.dto.EventDesignDto;
-import lk.ijse.finalproject.dto.VendorDto;
 import lk.ijse.finalproject.dto.tm.CollabaratingTm;
-import lk.ijse.finalproject.model.CollabaratingModel;
-import lk.ijse.finalproject.model.EventDesignModel;
-import lk.ijse.finalproject.model.VendorModel;
+import lk.ijse.finalproject.dao.impl.CollabaratingDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventDaoImpl;
+import lk.ijse.finalproject.dao.impl.VendorsDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
@@ -38,7 +45,7 @@ public class TeamLeaderDashBoardController {
     public Label lbldate;
     public Label lblTime;
     public Label vendorCount;
-    public VendorModel vendorModel=new VendorModel();
+    public VendorsDao vendorsDaoImpl =new VendorsDaoImpl();
     public AnchorPane teamLeaderPane;
     public AnchorPane inpane;
     public AnchorPane outPane;
@@ -58,7 +65,12 @@ public class TeamLeaderDashBoardController {
 
     public JFXComboBox cmbEvent;
 
-    public EventDesignModel designModel=new EventDesignModel();
+    public EventDao eventDao=new EventDaoImpl();
+    public CollabaratingDao dao=new CollabaratingDaoImpl();
+
+    EventBo bo=(EventBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENT);
+    CollabaratingBo collabaratingBo=(CollabaratingBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.COLLABORATION);
+    VendorsBo vendorsBo=(VendorsBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.VENDOR);
 
 
 
@@ -97,11 +109,11 @@ public class TeamLeaderDashBoardController {
 
     }
     public void loadAllCollabarting() {
-        var model = new CollabaratingModel();
+
       String eid= String.valueOf(cmbEvent.getValue());
         ObservableList<CollabaratingTm> obList = FXCollections.observableArrayList();
         try {
-            List<CollabaratingDto> dtoList = model.getAllCollabarting(eid);
+            List<CollabaratingDto> dtoList = collabaratingBo.getAllCollabarting(eid);
             for (CollabaratingDto dto : dtoList) {
                 obList.add(new CollabaratingTm(dto.getsId(), dto.getvId(), dto.getDesc(), dto.getTime(), dto.getDate(),dto.getPrice()));
             }
@@ -113,7 +125,7 @@ public class TeamLeaderDashBoardController {
     private void loadAllEventId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<EventDesignDto> dto =designModel.getAllevents();
+            List<EventDesignDto> dto =bo.getAllevents();
             for (EventDesignDto dtos : dto) {
                 oblist.add(dtos.getEid());
             }
@@ -125,7 +137,7 @@ public class TeamLeaderDashBoardController {
     }
     private void getVendorCount() {
         try{
-            int count=   vendorModel.countVendors();
+            int count=   vendorsBo.countVendors();
             vendorCount .setText(String.valueOf(count));
 
         }catch (Exception e){
@@ -184,7 +196,7 @@ public class TeamLeaderDashBoardController {
 
     public void searchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String category=txtsearch.getText();
-        List<String> vendorNames = vendorModel.getAllVendorsByCatgory(category);
+        List<String> vendorNames = vendorsBo.getAllVendorsByCatgory(category);
         listview.getItems().clear();
         listview.getItems().addAll(vendorNames);
     }

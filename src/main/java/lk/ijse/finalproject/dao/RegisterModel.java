@@ -1,7 +1,6 @@
-package lk.ijse.finalproject.model;
+package lk.ijse.finalproject.dao;
 
 import lk.ijse.finalproject.db.DbConnection;
-import lk.ijse.finalproject.dto.ClientDto;
 import lk.ijse.finalproject.dto.RegisterDto;
 
 import java.sql.Connection;

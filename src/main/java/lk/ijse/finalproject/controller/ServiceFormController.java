@@ -9,13 +9,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
 import javafx.util.Duration;
-import lk.ijse.finalproject.dto.ClientDto;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.ServiceBo;
+import lk.ijse.finalproject.dao.custom.ServiceDao;
 import lk.ijse.finalproject.dto.ServiceDto;
 import lk.ijse.finalproject.dto.tm.ServiceTm;
-import lk.ijse.finalproject.model.ClientModel;
-import lk.ijse.finalproject.model.ServiceModel;
+import lk.ijse.finalproject.dao.impl.ServiceDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 import org.controlsfx.control.Notifications;
@@ -25,7 +26,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 public class ServiceFormController {
     public AnchorPane servicePane;
@@ -62,10 +62,12 @@ public class ServiceFormController {
     @FXML
     private TextField txtSearch;
 
-    public ServiceModel serviceModel=new ServiceModel();
+    public ServiceDao serviceDaoImpl =new ServiceDaoImpl();
 
     public JFXButton btnLogOut;
     public JFXButton btnCollabarating;
+    ServiceBo bo=(ServiceBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.SERVICE);
+
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -80,7 +82,7 @@ public class ServiceFormController {
     @FXML
     void txtSearchOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String  id = txtSearch.getText();
-        ServiceDto dto = serviceModel.search(id);
+        ServiceDto dto = bo.search(id);
         if (dto!=null){
             fillData(dto);
         }else{
@@ -121,7 +123,7 @@ public class ServiceFormController {
 
     private void generateServiceId() {
         try{
-            String sId=serviceModel.generateSid();
+            String sId= bo.generateSid();
             serviceId.setText(sId);
         }catch (Exception e){
             throw new RuntimeException(e);
@@ -135,7 +137,7 @@ public class ServiceFormController {
 
     public void btnSaveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
        if(validateFields()) {
-           String sId = serviceModel.generateSid();
+           String sId = bo.generateSid();
            String sid=txtServiceId.getText();
 
            String packageName = txtPackageName.getText();
@@ -143,7 +145,7 @@ public class ServiceFormController {
            double price = Double.parseDouble(txtPrice.getText());
            var dto = new ServiceDto(sid, packageName, description, price);
            try {
-               boolean isSaved = serviceModel.saveService(dto);
+               boolean isSaved = bo.saveService(dto);
                if (isSaved) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Service is saved").show();
                    clearFields();
@@ -173,7 +175,7 @@ public class ServiceFormController {
 
             var dto = new ServiceDto(serviceId, name, desc, price);
             try {
-                boolean isUpdate = serviceModel.updateService(dto);
+                boolean isUpdate = bo.updateService(dto);
                 if (isUpdate) {
                     new Alert(Alert.AlertType.CONFIRMATION, "service is updated").show();
                     clearFields();
@@ -189,9 +191,9 @@ public class ServiceFormController {
         }
     }
     public void getAllService() throws SQLException, ClassNotFoundException {
-        var model = new ServiceModel();
+        //var model = new ServiceDaoImpl();
         ObservableList<ServiceTm> obList = FXCollections.observableArrayList();
-        List<ServiceDto> dtoList = model.getservices();
+        List<ServiceDto> dtoList = bo.getservices();
         try{
 
             for (ServiceDto dto : dtoList) {
@@ -216,7 +218,7 @@ public class ServiceFormController {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id=serviceId.getText();
         try{
-            boolean isDeleted=serviceModel.deleteService(id);
+            boolean isDeleted= bo.deleteService(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"service is deleted").show();
                 getAllService();

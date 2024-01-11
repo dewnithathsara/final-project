@@ -11,13 +11,20 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.AppointmentBo;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.EmployeeBo;
+import lk.ijse.finalproject.bo.custom.EventRoleBo;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.EmployeeDao;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.EmployeeDto;
 import lk.ijse.finalproject.dto.EventRoleDto;
 import lk.ijse.finalproject.dto.tm.EventRoleTm;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.EmployeeModel;
-import lk.ijse.finalproject.model.EventRoleModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.EmployeeDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventRoleDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
@@ -44,14 +51,14 @@ public class ManagerDashboardController {
     public Label lblCompletedEvent;
     public Label lblCompleted;
 
-    public AppointmentModel appointmentModel=new AppointmentModel();
+   //public AppointmentDao dao=new AppointmentDaoImpl();
     public Label lbltime;
     public Label lblfee;
     public Label lblstates1;
     public Label lblstates2;
     public Label empCount;
 
-    public EmployeeModel employeeModel=new EmployeeModel();
+    //public EmployeeDao employeeDaoImpl =new EmployeeDaoImpl();
     public JFXListView listview;
     public JFXComboBox cmbempId;
     public JFXComboBox cmbaId;
@@ -73,7 +80,7 @@ public class ManagerDashboardController {
     private TableColumn<?, ?> colTask;
     @FXML
     private TableView<EventRoleTm> tbleventRole;
-    public EventRoleModel eventRoleModel=new EventRoleModel();
+    //public EventRoleDaoImpl eventRoleDaoImpl =new EventRoleDaoImpl();
     public JFXButton btnhome1;
     public JFXButton btnmanageEmployee1;
     public JFXButton btnLogOut;
@@ -81,6 +88,10 @@ public class ManagerDashboardController {
     public JFXButton btnInvoice;
     public JFXButton btnclient;
     public JFXComboBox cmbSelectAid;
+    AppointmentBo bo=(AppointmentBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
+    EmployeeBo employeeBo=(EmployeeBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EMPLOYEE);
+    EventRoleBo eventRoleBo=(EventRoleBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.CUSTOMER);
+
 
 
     public void initialize(){
@@ -98,11 +109,11 @@ public class ManagerDashboardController {
     }
 
     private void getAllEventRole() {
-        var model = new EventRoleModel();
+        //var model = new EventRoleDaoImpl();
         String aid= String.valueOf(cmbSAid.getValue());
         ObservableList<EventRoleTm> obList = FXCollections.observableArrayList();
         try {
-            List<EventRoleDto> dtoList = model.getAllEventRole(aid);
+            List<EventRoleDto> dtoList = eventRoleBo.getAllEventRole(aid);
             for (EventRoleDto dto : dtoList) {
                 obList.add(new EventRoleTm(dto.getEmpId(),dto.getTask(), dto.getStatus()));
             }
@@ -123,7 +134,7 @@ public class ManagerDashboardController {
     private void loadAllEmployeeId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> dtos = employeeModel.getAllEmployee();
+            List<EmployeeDto> dtos = employeeBo.getAllEmployee();
             for (EmployeeDto employeeDto   : dtos) {
                 oblist.add(employeeDto.getEmpId());
             }
@@ -137,7 +148,7 @@ public class ManagerDashboardController {
     private void loadAllAppointmentId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<AppointmentDto> dtos = appointmentModel.getAllAppointment();
+            List<AppointmentDto> dtos = bo.getAllAppointment();
             for (AppointmentDto appointmentDto   : dtos) {
                 oblist.add(appointmentDto.getaId());
             }
@@ -152,7 +163,7 @@ public class ManagerDashboardController {
 
     private void countHalfPaid() {
         try{
-            int count=appointmentModel.countnotfullypaid();
+            int count=bo.countnotfullypaid();
             lblstates2.setText(String.valueOf(count));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -161,7 +172,7 @@ public class ManagerDashboardController {
 
     private void countFullypaid() {
         try{
-            int count=appointmentModel.countfullypaid();
+            int count=bo.countfullypaid();
             lblstates1.setText(String.valueOf(count));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -170,7 +181,7 @@ public class ManagerDashboardController {
 
     private void sumFee() {
         try{
-            double total=appointmentModel.sumfee();
+            double total=bo.sumfee();
             lblfee.setText(String.valueOf(total));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -179,7 +190,7 @@ public class ManagerDashboardController {
 
     private void countEmployee() {
         try {
-            int count=employeeModel.countEmployee();
+            int count= employeeBo.countEmployee();
             empCount.setText(String.valueOf(count));
         }catch(Exception e){
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
@@ -194,10 +205,10 @@ public class ManagerDashboardController {
         }
     }
 
-    private void countAppointment() {
+    public void countAppointment() {
 
         try{
-       int count=   appointmentModel.countAppointment();
+       int count=   bo.countAppointment();
          lblCompletedEvent .setText(String.valueOf(count));
         }catch (Exception e){
             new Alert(Alert.AlertType.ERROR,e.toString()).show();
@@ -244,7 +255,7 @@ public class ManagerDashboardController {
         String task=txtTask.getText();
         String status=txtStatus.getText();
         var dto = new EventRoleDto(empId, aid, task, status);
-        try{boolean isAssign = eventRoleModel.assignRole(dto);
+        try{boolean isAssign = eventRoleBo.assignRole(dto);
         if (isAssign) {
             new Alert(Alert.AlertType.CONFIRMATION, "Appointment is made").show();
             clearFields();
@@ -275,7 +286,7 @@ public class ManagerDashboardController {
 
         var dto=new EventRoleDto(empId,aId,task,status);
         try{
-            boolean isUpdate=eventRoleModel.updateEventRole(dto);
+            boolean isUpdate= eventRoleBo.updateEventRole(dto);
             if(isUpdate){
                 new Alert(Alert.AlertType.CONFIRMATION,"EventRole is updated").showAndWait();
                 clearFields();
@@ -291,7 +302,7 @@ public class ManagerDashboardController {
     public void deleteBtnOnAction(ActionEvent actionEvent) {
         String id=colEmpId.getText();
         try{
-            boolean isDeleted=eventRoleModel.DeleteEventRole(id);
+            boolean isDeleted= eventRoleBo.DeleteEventRole(id);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"EventRole is deleted").show();
             }else{

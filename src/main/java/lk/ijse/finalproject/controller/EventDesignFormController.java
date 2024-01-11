@@ -1,20 +1,12 @@
 package lk.ijse.finalproject.controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.finalproject.dto.EventDesignDto;
-import lk.ijse.finalproject.model.EventDesignModel;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class EventDesignFormController {
     public AnchorPane eventdesignPane;

@@ -1,4 +1,4 @@
-package lk.ijse.finalproject.model;
+package lk.ijse.finalproject.dao;
 
 import lk.ijse.finalproject.db.DbConnection;
 import lk.ijse.finalproject.dto.LoginDto;
@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class LoginModel {
     public boolean userLogin(LoginDto dto) throws SQLException, ClassNotFoundException {

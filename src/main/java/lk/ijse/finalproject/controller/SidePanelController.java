@@ -11,28 +11,26 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import lk.ijse.finalproject.db.DbConnection;
+import lk.ijse.finalproject.bo.BoFactory;
+import lk.ijse.finalproject.bo.custom.AppointmentBo;
+import lk.ijse.finalproject.bo.custom.CustomerBo;
+import lk.ijse.finalproject.bo.custom.EmployeeBo;
+import lk.ijse.finalproject.bo.custom.EventRoleBo;
+import lk.ijse.finalproject.dao.custom.AppointmentDao;
+import lk.ijse.finalproject.dao.custom.EmployeeDao;
+import lk.ijse.finalproject.dao.custom.EventRoleDao;
 import lk.ijse.finalproject.dto.AppointmentDto;
 import lk.ijse.finalproject.dto.EmployeeDto;
-import lk.ijse.finalproject.dto.EventConDto;
 import lk.ijse.finalproject.dto.EventRoleDto;
 import lk.ijse.finalproject.dto.tm.EventRoleTm;
-import lk.ijse.finalproject.model.AppointmentModel;
-import lk.ijse.finalproject.model.EmployeeModel;
-import lk.ijse.finalproject.model.EventRoleModel;
+import lk.ijse.finalproject.dao.impl.AppointmentDaoImpl;
+import lk.ijse.finalproject.dao.impl.EmployeeDaoImpl;
+import lk.ijse.finalproject.dao.impl.EventRoleDaoImpl;
 import lk.ijse.finalproject.util.Navigation;
 import lk.ijse.finalproject.util.Route;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -75,12 +73,10 @@ public class SidePanelController {
     public Label lblfee;
     public Label lblstates1;
     public Label lblstates2;
-    public EventRoleModel eventRoleModel = new EventRoleModel();
-    public AppointmentModel appointmentModel = new AppointmentModel();
-    public EmployeeModel employeeModel = new EmployeeModel();
     public JFXComboBox cmbSAid;
-
-
+    EmployeeBo bo=(EmployeeBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EMPLOYEE);
+    EventRoleBo eventRoleBo=(EventRoleBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.EVENTROLE);
+    AppointmentBo appointmentBo=(AppointmentBo) BoFactory.getBoFactory().getBOTypes(BoFactory.botypes.APPOINTMENT);
     public void btnHomeOnAction(ActionEvent actionEvent) throws IOException {
         managerPane.getChildren().clear();
         Navigation.navigate(Route.MANAGER_DASHBOARD, fullPane);
@@ -128,7 +124,7 @@ public class SidePanelController {
     private void loadAllEmployeeId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> dtos = employeeModel.getAllEmployee();
+            List<EmployeeDto> dtos = bo.getAllEmployee();
             for (EmployeeDto employeeDto : dtos) {
                 oblist.add(employeeDto.getEmpId());
             }
@@ -143,7 +139,7 @@ public class SidePanelController {
     private void loadAllAppointmentId() {
         ObservableList<String> oblist = FXCollections.observableArrayList();
         try {
-            List<AppointmentDto> dtos = appointmentModel.getAllAppointment();
+            List<AppointmentDto> dtos = appointmentBo.getAllAppointment();
             for (AppointmentDto appointmentDto : dtos) {
                 oblist.add(appointmentDto.getaId());
             }
@@ -156,12 +152,12 @@ public class SidePanelController {
     }
 
     private void getAllEventRole() throws SQLException, ClassNotFoundException {
-        var model = new EventRoleModel();
+       // var model = new EventRoleDaoImpl();
         String aid = String.valueOf(cmbSAid.getValue());
 
         ObservableList<EventRoleTm> obList = FXCollections.observableArrayList();
         try {
-            List<EventRoleDto> dtoList = model.getAllEventRole(aid);
+            List<EventRoleDto> dtoList = eventRoleBo.getAllEventRole(aid);
             for (EventRoleDto dto : dtoList) {
                 obList.add(new EventRoleTm(dto.getEmpId(), dto.getTask(), dto.getStatus()));
             }
@@ -180,7 +176,7 @@ public class SidePanelController {
 
     private void countHalfPaid() {
         try {
-            int count = appointmentModel.countnotfullypaid();
+            int count = appointmentBo.countnotfullypaid();
             lblstates2.setText(String.valueOf(count));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -189,7 +185,7 @@ public class SidePanelController {
 
     private void countFullypaid() {
         try {
-            int count = appointmentModel.countfullypaid();
+            int count = appointmentBo.countfullypaid();
             lblstates1.setText(String.valueOf(count));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -198,7 +194,7 @@ public class SidePanelController {
 
     private void sumFee() {
         try {
-            double total = appointmentModel.sumfee();
+            double total = appointmentBo.sumfee();
             lblfee.setText(String.valueOf(total));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -207,7 +203,7 @@ public class SidePanelController {
 
     private void countEmployee() {
         try {
-            int count = employeeModel.countEmployee();
+            int count = bo.countEmployee();
             empCount.setText(String.valueOf(count));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -226,7 +222,7 @@ public class SidePanelController {
     private void countAppointment() {
 
         try {
-            int count = appointmentModel.countAppointment();
+            int count = appointmentBo.countAppointment();
             lblCompletedEvent.setText(String.valueOf(count));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.toString()).show();
@@ -246,7 +242,7 @@ public class SidePanelController {
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String serchId=txtSearch.getText();
 
-        EventRoleDto dto=eventRoleModel.showallrole(serchId);
+        EventRoleDto dto= eventRoleBo.showallrole(serchId);
         try {
             if (dto != null) {
                 fillData(dto);
@@ -286,7 +282,7 @@ public class SidePanelController {
         String status = txtStatus.getText();
         var dto = new EventRoleDto(empId, aid, task, status);
         try {
-            boolean isAssign = eventRoleModel.assignRole(dto);
+            boolean isAssign = eventRoleBo.assignRole(dto);
             if (isAssign) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Appointment is made").show();
                 clearFields();
@@ -320,7 +316,7 @@ public class SidePanelController {
 
         var dto = new EventRoleDto(empId, aId, task, status);
         try {
-            boolean isUpdate = eventRoleModel.updateEventRole(dto);
+            boolean isUpdate = eventRoleBo.updateEventRole(dto);
             if (isUpdate) {
                 new Alert(Alert.AlertType.CONFIRMATION, "EventRole is updated").showAndWait();
                 clearFields();
@@ -335,7 +331,7 @@ public class SidePanelController {
     public void deleteBtnOnAction(ActionEvent actionEvent) {
         String id = colEmpId.getText();
         try {
-            boolean isDeleted = eventRoleModel.DeleteEventRole(id);
+            boolean isDeleted = eventRoleBo.DeleteEventRole(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "EventRole is deleted").show();
             } else {
