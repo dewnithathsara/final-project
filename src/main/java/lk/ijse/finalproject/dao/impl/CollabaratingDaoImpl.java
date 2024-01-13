@@ -12,15 +12,20 @@ import java.util.List;
 
 public class CollabaratingDaoImpl implements CollabaratingDao {
     @Override
-    public boolean saveCollabaring(VendorCollabaration entity) throws SQLException, ClassNotFoundException {
+    public List<VendorCollabaration> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(VendorCollabaration entity) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO vendor_collaborating(eid,Sid,Vid,description,time,date,price) VALUES(?,?,?,?,?,?,?)",entity.geteId(),entity.getsId(),entity.getvId(),entity.getDesc(),entity.getTime(),entity.getDate(),entity.getPrice());
     }
     @Override
-    public boolean deleteCollabaration(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("DELETE FROM vendor_collaborating WHERE eid=?",id);
     }
     @Override
-    public boolean updateCollobarating(VendorCollabaration entity) throws SQLException, ClassNotFoundException {
+    public boolean update(VendorCollabaration entity) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("UPDATE vendor_collaborating SET Sid=?,Vid=?,description=?,time=?,date=?,price=? , eid=?",entity.getsId(),entity.getvId(),entity.getDesc(),entity.getTime(),entity.getDate(),entity.getPrice(),entity.geteId());
     }
     @Override
@@ -58,5 +63,8 @@ public class CollabaratingDaoImpl implements CollabaratingDao {
             );
         }
         return  null;
+    }
+    public String generateId(){
+        return null;
     }
 }

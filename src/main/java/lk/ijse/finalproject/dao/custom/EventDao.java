@@ -9,13 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface EventDao extends CrudDao {
-    String generateEventDesignId() throws SQLException, ClassNotFoundException;
+public interface EventDao extends CrudDao<Event> {
 
-    boolean saveEvent(Event entity) throws SQLException, ClassNotFoundException;
-    List<Event> getAllevents() throws SQLException, ClassNotFoundException;
-    boolean updateEvent(Event entity) throws SQLException, ClassNotFoundException;
-    boolean deletEevent(String id) throws SQLException, ClassNotFoundException;
     int countCompletedEvent(String event_status) throws SQLException, ClassNotFoundException;
     String popularEvent() throws SQLException, ClassNotFoundException;
     List<Event> getAllCurrentEvent(LocalDate date) throws SQLException, ClassNotFoundException;

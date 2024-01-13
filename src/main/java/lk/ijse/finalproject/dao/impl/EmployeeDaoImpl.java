@@ -17,16 +17,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     public EventRoleDaoImpl eventRoleDaoImpl =new EventRoleDaoImpl();
     @Override
-    public boolean saveEmployee(Employee dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Employee dto) throws SQLException, ClassNotFoundException {
             return SqlUtil.testQuery( "INSERT INTO employee(empId,name,email,contact,type) VALUES(?,?,?,?,?)", dto.getEmpId(), dto.getName(),dto.getEmail(),dto.getContact(),dto.getType());
     }
     @Override
-    public boolean updateEmployee(Employee dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Employee dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("UPDATE employee SET name=?,email=?,contact=?,type=? WHERE empId=?",dto.getName(),dto.getEmail(),dto.getContact(),dto.getType(),dto.getEmpId());
     }
     //transaction part
     @Override
-    public boolean deleteEmployee(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         Connection connection=null;
         PreparedStatement pstm=null;
         boolean isDelete=false;
@@ -42,7 +42,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
           isDelete=pstm.executeUpdate()>0;
          if(isDelete) {
              connection.commit();
-             eventRoleDaoImpl.DeleteEventRole(employeeId);
+             eventRoleDaoImpl.delete(employeeId);
 
          }
      }catch (RuntimeException e){
@@ -53,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return isDelete ;
     }
     @Override
-    public List<Employee> getAllEmployee() throws SQLException, ClassNotFoundException {
+    public List<Employee> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM employee");
         ArrayList<Employee> dtoList=new ArrayList<>();
         while(resultSet.next()){
@@ -91,5 +91,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
             );
         }
         return  null;
+    }
+    public String generateId(){
+        return null;
     }
 }

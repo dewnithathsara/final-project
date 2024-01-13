@@ -14,12 +14,12 @@ public class CustomerBoImpl implements CustomerBo {
     ClientDao dao=(ClientDao) DAOFactory.getDaoFactory().getDaoTypes(DAOFactory.DaoTypes.CUSTOMER);
     @Override
     public boolean saveCustomer(ClientDto dto) throws SQLException, ClassNotFoundException {
-        return dao.saveCustomer(new Customer(dto.getcId(),dto.getCustName(),dto.getEmail(),dto.getAddress(),dto.getContact()));
+        return dao.save(new Customer(dto.getcId(),dto.getCustName(),dto.getEmail(),dto.getAddress(),dto.getContact()));
     }
 
     @Override
     public boolean updateClient(ClientDto dto) throws SQLException, ClassNotFoundException {
-        return dao.updateClient(new Customer(dto.getcId(),dto.getCustName(),dto.getEmail(),dto.getAddress(),dto.getContact()));
+        return dao.update(new Customer(dto.getcId(),dto.getCustName(),dto.getEmail(),dto.getAddress(),dto.getContact()));
 
     }
 
@@ -27,12 +27,12 @@ public class CustomerBoImpl implements CustomerBo {
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
 
 
-        return dao.deleteCustomer(id);
+        return dao.delete(id);
     }
 
     @Override
     public List<ClientDto> getAllCustomers() throws SQLException, ClassNotFoundException {
-        ArrayList<Customer> customer= (ArrayList<Customer>) dao.getAllCustomers();
+        ArrayList<Customer> customer= (ArrayList<Customer>) dao.getAll();
         ArrayList<ClientDto> dto=new ArrayList<>();
         for(Customer c:customer) {
             dto.add(new ClientDto(c.getcId(),c.getCustName(),c.getEmail(),c.getAddress(),c.getContact()));

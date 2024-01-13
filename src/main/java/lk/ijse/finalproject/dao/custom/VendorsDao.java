@@ -7,13 +7,9 @@ import lk.ijse.finalproject.entity.Vendors;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface VendorsDao extends CrudDao {
+public interface VendorsDao extends CrudDao<Vendors> {
     Vendors search(String id) throws SQLException, ClassNotFoundException;
-    String generateNextVendorId() throws SQLException, ClassNotFoundException;
-    boolean saveVendor(Vendors dto) throws SQLException, ClassNotFoundException;
-    List<Vendors> getAllVendors() throws SQLException, ClassNotFoundException;
-    boolean deleteVendor(String id) throws SQLException, ClassNotFoundException;
-    boolean updateVendor(Vendors dto) throws SQLException, ClassNotFoundException;
+
     int countVendors() throws SQLException, ClassNotFoundException;
     List<String> getAllVendorsByCatgory(String category) throws SQLException, ClassNotFoundException;
     int countphotographers(String category) throws SQLException, ClassNotFoundException;

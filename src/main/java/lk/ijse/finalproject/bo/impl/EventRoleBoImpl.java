@@ -16,17 +16,17 @@ public class EventRoleBoImpl implements EventRoleBo {
     public EventRoleDao eventRoleDaoImpl = new EventRoleDaoImpl();
     @Override
     public boolean assignRole(EventRoleDto dto) throws SQLException, ClassNotFoundException {
-        return eventRoleDaoImpl.assignRole(new EventRole(dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus()));
+        return eventRoleDaoImpl.save(new EventRole(dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus()));
     }
 
     @Override
     public boolean DeleteEventRole(String id) throws SQLException, ClassNotFoundException {
-        return eventRoleDaoImpl.DeleteEventRole(id);
+        return eventRoleDaoImpl.delete(id);
     }
 
     @Override
     public List<EventRoleDto> getAllEventRole(String aid) throws SQLException, ClassNotFoundException {
-        ArrayList<EventRole> events = (ArrayList<EventRole>) eventRoleDaoImpl.getAllEventRole(aid);
+        ArrayList<EventRole> events = (ArrayList<EventRole>) eventRoleDaoImpl.getAllById(aid);
         ArrayList<EventRoleDto> dto = new ArrayList<>();
         for(EventRole eventsrole:events){
             dto.add(new EventRoleDto(eventsrole.getEmpId(),eventsrole.getAid(),eventsrole.getTask(),eventsrole.getStatus()));
@@ -42,6 +42,6 @@ public class EventRoleBoImpl implements EventRoleBo {
 
     @Override
     public boolean updateEventRole(EventRoleDto dto) throws SQLException, ClassNotFoundException {
-        return eventRoleDaoImpl.updateEventRole(new EventRole(dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus()));
+        return eventRoleDaoImpl.update(new EventRole(dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus()));
     }
 }

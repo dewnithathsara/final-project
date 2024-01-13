@@ -8,11 +8,9 @@ import lk.ijse.finalproject.entity.User;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface UserDao extends CrudDao {
+public interface UserDao extends CrudDao <User>{
     boolean userLogin(User dto) throws SQLException, ClassNotFoundException;
-    String generateUserId() throws SQLException, ClassNotFoundException;
-    boolean registerUser(User dto) throws SQLException, ClassNotFoundException;
-    List<User> getAllusers() throws SQLException, ClassNotFoundException;
+
     boolean matchmails();
     User searchPassword(User dto);
 }

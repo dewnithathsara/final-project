@@ -7,10 +7,7 @@ import lk.ijse.finalproject.entity.VendorCollabaration;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CollabaratingDao extends CrudDao {
-    boolean saveCollabaring(VendorCollabaration entity) throws SQLException, ClassNotFoundException;
-    boolean deleteCollabaration(String id) throws SQLException, ClassNotFoundException;
-    boolean updateCollobarating(VendorCollabaration entity) throws SQLException, ClassNotFoundException;
+public interface CollabaratingDao extends CrudDao<VendorCollabaration> {
     List<VendorCollabaration> getAllCollabarting(String eid) throws SQLException, ClassNotFoundException;
     VendorCollabaration search(String id) throws SQLException, ClassNotFoundException;
 

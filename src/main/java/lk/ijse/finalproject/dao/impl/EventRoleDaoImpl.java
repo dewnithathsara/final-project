@@ -15,24 +15,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventRoleDaoImpl implements EventRoleDao {
+public  class EventRoleDaoImpl implements EventRoleDao {
 
     @Override
-    public boolean assignRole(EventRole dto) throws SQLException, ClassNotFoundException {
+    public List<EventRole> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(EventRole dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO eventRole VALUES(?,?,?,?)",dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus());
     }
     @Override
-    public boolean DeleteEventRole(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("DELETE FROM eventRole WHERE empId=?",id);
 
     }
 
     @Override
-    public boolean updateEventRole(EventRole dto) throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean update(EventRole dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery(" UPDATE eventRole SET aId=?,task=?,task_status=? WHERE empId=?",dto.getEmpId(),dto.getTask(),dto.getAid(),dto.getStatus());
     }
     @Override
-    public List<EventRole> getAllEventRole(String aid) throws SQLException, ClassNotFoundException {
+    public List<EventRole> getAllById(String aid) throws SQLException, ClassNotFoundException {
         ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM eventRole WHERE aId=?",aid);
         ArrayList<EventRole> dtoList=new ArrayList<>();
         while(resultSet.next()){

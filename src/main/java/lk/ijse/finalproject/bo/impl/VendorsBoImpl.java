@@ -22,17 +22,17 @@ public class VendorsBoImpl implements VendorsBo {
 
     @Override
     public String generateNextVendorId() throws SQLException, ClassNotFoundException {
-        return vendorsDaoImpl.generateNextVendorId();
+        return vendorsDaoImpl.generateId();
     }
 
     @Override
     public boolean saveVendor(VendorDto dto) throws SQLException, ClassNotFoundException {
-        return vendorsDaoImpl.saveVendor(new Vendors(dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact()));
+        return vendorsDaoImpl.save(new Vendors(dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact()));
     }
 
     @Override
     public List<VendorDto> getAllVendors() throws SQLException, ClassNotFoundException {
-        ArrayList<Vendors> events = (ArrayList<Vendors>) vendorsDaoImpl.getAllVendors();
+        ArrayList<Vendors> events = (ArrayList<Vendors>) vendorsDaoImpl.getAll();
         ArrayList<VendorDto> dto = new ArrayList<>();
         for(Vendors eventsrole:events){
             dto.add(new VendorDto(eventsrole.getId(),eventsrole.getUid(),eventsrole.getCategory(),eventsrole.getName(),eventsrole.getEmail(),eventsrole.getContact()));
@@ -41,12 +41,12 @@ public class VendorsBoImpl implements VendorsBo {
     }
     @Override
     public boolean deleteVendor(String id) throws SQLException, ClassNotFoundException {
-        return vendorsDaoImpl.deleteVendor(id);
+        return vendorsDaoImpl.delete(id);
     }
 
     @Override
     public boolean updateVendor(VendorDto dto) throws SQLException, ClassNotFoundException {
-        return vendorsDaoImpl.updateVendor(new Vendors(dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact()));
+        return vendorsDaoImpl.update(new Vendors(dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact()));
     }
 
     @Override

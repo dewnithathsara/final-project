@@ -7,11 +7,8 @@ import lk.ijse.finalproject.entity.Customer;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ClientDao extends CrudDao {
-    boolean saveCustomer(Customer entity) throws SQLException, ClassNotFoundException;
-    boolean updateClient(Customer entity) throws SQLException, ClassNotFoundException;
-    boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException;
-    List<Customer> getAllCustomers() throws SQLException, ClassNotFoundException;
+public interface ClientDao extends CrudDao<Customer> {
+
     Customer searchId(String id) throws SQLException, ClassNotFoundException;
     Customer search(String id) throws SQLException, ClassNotFoundException;
 }

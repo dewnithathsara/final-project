@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
             return resultSet.next();
     }
     @Override
-    public String generateUserId() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
 
 
         ResultSet resultSet = SqlUtil.testQuery("SELECT uId FROM users ORDER BY uId DESC LIMIT 1");
@@ -36,11 +36,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean registerUser(User dto) throws SQLException, ClassNotFoundException {
+    public boolean save(User dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO users(uId,name,email,username,password) VALUES(?,?,?,?,?)",dto.getUid(),dto.getName(),dto.getEmail(),dto.getUserName(),dto.getPassword());
     }
+
     @Override
-    public List<User> getAllusers() throws SQLException, ClassNotFoundException {
+    public boolean update(User object) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public List<User> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SqlUtil.testQuery("SELECT * FROM users");
         ArrayList<User> dtoList = new ArrayList<>();
         while (resultSet.next()) {
@@ -57,6 +63,14 @@ public class UserDaoImpl implements UserDao {
         }
         return dtoList;
     }
+
+
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     @Override
     public boolean matchmails() {
         return true;

@@ -20,12 +20,12 @@ public class AppointmentBoImpl implements AppointmentBo {
     AppointmentDao dao=(AppointmentDao) DAOFactory.getDaoFactory().getDaoTypes(DAOFactory.DaoTypes.APPOINTMENT);
     @Override
     public String generateNextAppId() throws SQLException, ClassNotFoundException {
-        return dao.generateNextAppId();
+        return dao.generateId();
     }
 
     @Override
     public boolean makeAppointment(AppointmentDto dto) throws SQLException, ClassNotFoundException {
-        return dao.makeAppointment(new Appointment(dto.getaId(),dto.getFee(),dto.getStatus(),dto.getTime(),dto.getDate(),dto.getcId()));
+        return dao.save(new Appointment(dto.getaId(),dto.getFee(),dto.getStatus(),dto.getTime(),dto.getDate(),dto.getcId()));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AppointmentBoImpl implements AppointmentBo {
     }
   @Override
     public List<AppointmentDto> getAllAppointment() throws SQLException, ClassNotFoundException {
-        ArrayList<Appointment> appointments= (ArrayList<Appointment>) dao.getAllAppointment();
+        ArrayList<Appointment> appointments= (ArrayList<Appointment>) dao.getAll();
         ArrayList<AppointmentDto> dto=new ArrayList<>();
         for(Appointment c:appointments) {
             dto.add(new AppointmentDto(c.getAid(),c.getFee(),c.getStatus(),c.getApp_date(),c.getApp_time(), c.getCid()));
@@ -50,7 +50,7 @@ public class AppointmentBoImpl implements AppointmentBo {
 
     @Override
     public boolean deleteAppointment(String aId) throws SQLException, ClassNotFoundException {
-        return dao.deleteAppointment(aId);
+        return dao.delete(aId);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class AppointmentBoImpl implements AppointmentBo {
 
     @Override
     public boolean updateAppointment(AppointmentDto dto) throws SQLException, ClassNotFoundException {
-        return dao.updateAppointment(new Appointment(dto.getaId(),dto.getFee(),dto.getStatus(),dto.getTime(),dto.getDate(),dto.getcId()));
+        return dao.update(new Appointment(dto.getaId(),dto.getFee(),dto.getStatus(),dto.getTime(),dto.getDate(),dto.getcId()));
     }
 
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AppointmentDaoImpl implements AppointmentDao {
     @Override
-    public String generateNextAppId() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
         System.out.println("hi me");
         ResultSet resultSet =  SqlUtil.testQuery("SELECT aid FROM appointment ORDER BY aid DESC LIMIT 1  ");
         System.out.println("oh my my");
@@ -34,7 +34,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
         }
     }
     @Override
-    public boolean makeAppointment(Appointment entity) throws SQLException, ClassNotFoundException {
+    public boolean save(Appointment entity) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO appointment(aid,fee,status,app_date,app_time,cid) VALUES(?,?,?,?,?,?)",entity.getAid(),entity.getFee(),entity.getStatus(),entity.getApp_date(),entity.getApp_time(),entity.getCid());
     }
     @Override
@@ -53,7 +53,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
         return entity;
     }
     @Override
-    public List<Appointment> getAllAppointment() throws SQLException, ClassNotFoundException {
+    public List<Appointment> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.testQuery("SELECT * FROM appointment");
         ArrayList<Appointment> getAll = new ArrayList<>();
@@ -74,7 +74,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
         return SqlUtil.testQuery("UPDATE appointment SET aid=? fee=?,status=?,app_date=?,app_time=? WHERE cId=?",id);
     }
     @Override
-    public boolean deleteAppointment(String aId) throws SQLException, ClassNotFoundException {
+    public boolean delete(String aId) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("DELETE FROM appointment WHERE aId=?",aId);
     }
     public boolean deleteClientId(String id) throws SQLException, ClassNotFoundException {
@@ -134,7 +134,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
         return entity;
     }
     @Override
-    public boolean updateAppointment(Appointment dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Appointment dto) throws SQLException, ClassNotFoundException {
      return SqlUtil.testQuery("UPDATE appointment SET fee=?,status=?,app_date=?,app_time=?,cid=? WHERE aid=?",dto.getFee(),dto.getStatus(),dto.getApp_date(),dto.getApp_time(),dto.getCid(),dto.getAid());
     }
 }

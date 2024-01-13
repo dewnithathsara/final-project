@@ -16,17 +16,17 @@ public class CollabaratingBoImpl implements CollabaratingBo {
     public CollabaratingDao dao=new CollabaratingDaoImpl();
     @Override
     public boolean saveCollabaring(CollabaratingDto dto) throws SQLException, ClassNotFoundException {
-        return dao.saveCollabaring(new VendorCollabaration(dto.geteId(),dto.getsId(),dto.getvId(),dto.getDesc(),dto.getTime(),dto.getDate(),dto.getPrice()));
+        return dao.save(new VendorCollabaration(dto.geteId(),dto.getsId(),dto.getvId(),dto.getDesc(),dto.getTime(),dto.getDate(),dto.getPrice()));
     }
 
     @Override
     public boolean deleteCollabaration(String id) throws SQLException, ClassNotFoundException {
-        return dao.deleteCollabaration(id);
+        return dao.delete(id);
     }
 
     @Override
     public boolean updateCollobarating(CollabaratingDto dto) throws SQLException, ClassNotFoundException {
-          return dao.updateCollobarating(new VendorCollabaration(dto.geteId(),dto.getsId(),dto.getvId(),dto.getDesc(),dto.getTime(),dto.getDate(),dto.getPrice()));
+          return dao.update(new VendorCollabaration(dto.geteId(),dto.getsId(),dto.getvId(),dto.getDesc(),dto.getTime(),dto.getDate(),dto.getPrice()));
 
     }
 

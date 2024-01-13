@@ -16,17 +16,17 @@ public class ServiceBoImpl implements ServiceBo {
     public ServiceDao serviceDaoImpl =new ServiceDaoImpl();
     @Override
     public String generateSid() throws SQLException, ClassNotFoundException {
-        return serviceDaoImpl.generateSid();
+        return serviceDaoImpl.generateId();
     }
 
     @Override
     public boolean saveService(ServiceDto dto) throws SQLException, ClassNotFoundException {
-        return serviceDaoImpl.saveService(new Service(dto.getSid(),dto.getPackageName(),dto.getDescription(),dto.getPrice()));
+        return serviceDaoImpl.save(new Service(dto.getSid(),dto.getPackageName(),dto.getDescription(),dto.getPrice()));
     }
 
     @Override
     public List<ServiceDto> getAllServices() throws SQLException, ClassNotFoundException {
-        ArrayList<Service> events = (ArrayList<Service>) serviceDaoImpl.getAllServices();
+        ArrayList<Service> events = (ArrayList<Service>) serviceDaoImpl.getAll();
         ArrayList<ServiceDto> dto = new ArrayList<>();
         for(Service eventsrole:events){
             dto.add(new ServiceDto(eventsrole.getSid(),eventsrole.getPackageName(),eventsrole.getDescription(),eventsrole.getPrice()));
@@ -37,18 +37,18 @@ public class ServiceBoImpl implements ServiceBo {
 
     @Override
     public boolean deleteService(String id) throws SQLException, ClassNotFoundException {
-        return serviceDaoImpl.deleteService(id);
+        return serviceDaoImpl.delete(id);
     }
 
     @Override
     public boolean updateService(ServiceDto dto) throws SQLException, ClassNotFoundException {
-        return serviceDaoImpl.updateService(new Service(dto.getSid(),dto.getPackageName(),dto.getDescription(),dto.getPrice()));
+        return serviceDaoImpl.update(new Service(dto.getSid(),dto.getPackageName(),dto.getDescription(),dto.getPrice()));
 
     }
 
     @Override
     public List<ServiceDto> getservices() throws SQLException, ClassNotFoundException {
-        ArrayList<Service> events = (ArrayList<Service>) serviceDaoImpl.getAllServices();
+        ArrayList<Service> events = (ArrayList<Service>) serviceDaoImpl.getAll();
         ArrayList<ServiceDto> dto = new ArrayList<>();
         for(Service eventsrole:events){
             dto.add(new ServiceDto(eventsrole.getSid(),eventsrole.getPackageName(),eventsrole.getDescription(),eventsrole.getPrice()));

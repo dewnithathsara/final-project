@@ -24,17 +24,17 @@ public class UserBoImpl implements UserBo {
 
     @Override
     public String generateUserId() throws SQLException, ClassNotFoundException {
-        return dao.generateUserId();
+        return dao.generateId();
     }
 
     @Override
     public boolean registerUser(RegisterDto dto) throws SQLException, ClassNotFoundException {
-        return dao.registerUser(new User(dto.getUid(),dto.getName(),dto.getUserName(),dto.getEmail(),dto.getPassword()));
+        return dao.save(new User(dto.getUid(),dto.getName(),dto.getUserName(),dto.getEmail(),dto.getPassword()));
     }
 
     @Override
     public List<RegisterDto> getAllusers() throws SQLException, ClassNotFoundException {
-        ArrayList<User> users = (ArrayList<User>) dao.getAllusers();
+        ArrayList<User> users = (ArrayList<User>) dao.getAll();
         ArrayList<RegisterDto> dto = new ArrayList<>();
         for(User u:users) {
             dto.add(new RegisterDto(u.getUid(),u.getName(),u.getUserName(),u.getEmail(),u.getPassword()));

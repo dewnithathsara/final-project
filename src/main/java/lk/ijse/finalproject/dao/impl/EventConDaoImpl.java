@@ -10,10 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class EventConDaoImpl implements EventConDao {
     @Override
-    public String generateNextCode() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SqlUtil.testQuery("SELECT conId FROM consulting_fee ORDER BY conId LIMIT 1");
         if (resultSet.next()) {
             String id= resultSet.getString("conId");
@@ -26,16 +27,21 @@ public class EventConDaoImpl implements EventConDao {
 
 
     @Override
-    public boolean saveConsulting(Consultation dto) throws SQLException, ClassNotFoundException {
+    public List<Consultation> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(Consultation dto) throws SQLException, ClassNotFoundException {
         ;
         return SqlUtil.testQuery("INSERT INTO consulting_fee VALUES(?,?,?,?)",dto.getConId(),dto.getFee(),dto.getDescription(),dto.getcId());
     }
     @Override
-    public boolean deleteEventCon(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("DELETE FROM consulting_fee WHERE conId=?",id);
     }
     @Override
-    public boolean updateConsulting(Consultation dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Consultation dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("UPDATE consulting_fee SET fee=?,description=?,cid=?,conId=?",dto.getFee(),dto.getDescription(),dto.getcId(),dto.getConId());
     }
     @Override

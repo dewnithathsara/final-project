@@ -17,7 +17,7 @@ public class EventDaoImpl implements EventDao {
 
     public CollabaratingDaoImpl collabaratingModel=new CollabaratingDaoImpl();
     @Override
-    public String generateEventDesignId() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = SqlUtil.testQuery("SELECT eid FROM event ORDER BY eid DESC LIMIT 1  ");
         if (resultSet.next()) {
             String id= resultSet.getString("eid");
@@ -29,11 +29,11 @@ public class EventDaoImpl implements EventDao {
 
     }
     @Override
-    public boolean saveEvent(Event dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Event dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO event(eid,type,location,aId,time,event_date,theme,event_status) VALUES(?,?,?,?,?,?,?,?)",dto.getEid(),dto.getType(),dto.getLocation(),dto.getaId(),dto.getTime(),dto.getDate(),dto.getTheme(),dto.getStatus());
     }
     @Override
-    public List<Event> getAllevents() throws SQLException, ClassNotFoundException {
+    public List<Event> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM event");
         ArrayList<Event> dtoList=new ArrayList<>();
         while(resultSet.next()){
@@ -55,12 +55,12 @@ public class EventDaoImpl implements EventDao {
         return dtoList;
     }
     @Override
-    public boolean updateEvent(Event dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Event dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("UPDATE event SET type=?,location=?,aId=?,time=?,date=?,theme=?,status=? WHERE eid=?",dto.getType(),dto.getLocation(),dto.getaId(),dto.getTime(),dto.getDate(),dto.getTheme(),dto.getStatus(),dto.getEid());
     }
     //transaction part
     @Override
-    public boolean deletEevent(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         Connection connection = null;
         boolean isDeleted = false;
         try {
@@ -73,7 +73,7 @@ public class EventDaoImpl implements EventDao {
             isDeleted = pstm.executeUpdate() > 0;
             if (isDeleted) {
                 connection.commit();
-                collabaratingModel.deleteCollabaration(id);
+                collabaratingModel.delete(id);
             } else {
                 connection.rollback();
             }

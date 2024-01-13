@@ -14,22 +14,22 @@ public class ConsultingBoImpl implements ConsultingBo {
     public EventConDao eventConDaoImpl = new EventConDaoImpl();
     @Override
     public String generateNextCode() throws SQLException, ClassNotFoundException {
-        return eventConDaoImpl.generateNextCode();
+        return eventConDaoImpl.generateId();
     }
 
     @Override
     public boolean saveConsulting(EventConDto dto) throws SQLException, ClassNotFoundException {
-        return eventConDaoImpl.saveConsulting(new Consultation(dto.getConId(),dto.getFee(),dto.getDescription(),dto.getcId()));
+        return eventConDaoImpl.save(new Consultation(dto.getConId(),dto.getFee(),dto.getDescription(),dto.getcId()));
     }
 
     @Override
     public boolean deleteEventCon(String id) throws SQLException, ClassNotFoundException {
-        return eventConDaoImpl.deleteEventCon(id);
+        return eventConDaoImpl.delete(id);
     }
 
     @Override
     public boolean updateConsulting(EventConDto dto) throws SQLException, ClassNotFoundException {
-        return eventConDaoImpl.updateConsulting(new Consultation(dto.getConId(),dto.getFee(),dto.getDescription(),dto.getcId()));
+        return eventConDaoImpl.update(new Consultation(dto.getConId(),dto.getFee(),dto.getDescription(),dto.getcId()));
     }
 
     @Override

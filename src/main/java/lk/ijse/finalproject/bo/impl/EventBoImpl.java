@@ -19,17 +19,17 @@ public class EventBoImpl implements EventBo {
     public EventDao eventDaoImpl =new EventDaoImpl();
     @Override
     public String generateEventDesignId() throws SQLException, ClassNotFoundException {
-        return eventDaoImpl.generateEventDesignId();
+        return eventDaoImpl.generateId();
     }
 
     @Override
     public boolean saveEvent(EventDesignDto dto) throws SQLException, ClassNotFoundException {
-        return eventDaoImpl.saveEvent(new Event(dto.getEid(),dto.getType(),dto.getLocation(),dto.getaId(),dto.getDate(),dto.getTime(),dto.getTheme(),dto.getStatus()));
+        return eventDaoImpl.save(new Event(dto.getEid(),dto.getType(),dto.getLocation(),dto.getaId(),dto.getDate(),dto.getTime(),dto.getTheme(),dto.getStatus()));
     }
 
     @Override
     public List<EventDesignDto> getAllevents() throws SQLException, ClassNotFoundException {
-        ArrayList<Event> events = (ArrayList<Event>) eventDaoImpl.getAllevents();
+        ArrayList<Event> events = (ArrayList<Event>) eventDaoImpl.getAll();
         ArrayList<EventDesignDto> dto = new ArrayList<>();
         for (Event c : events) {
             dto.add(new EventDesignDto(c.getEid(),c.getType(),c.getLocation(),c.getaId(),c.getTime(),c.getDate(),c.getTheme(),c.getStatus()));
@@ -38,12 +38,12 @@ public class EventBoImpl implements EventBo {
     }
     @Override
     public boolean updateEvent(EventDesignDto dto) throws SQLException, ClassNotFoundException {
-        return eventDaoImpl.updateEvent(new Event(dto.getEid(),dto.getType(),dto.getLocation(),dto.getaId(),dto.getDate(),dto.getTime(),dto.getTheme(),dto.getStatus()));
+        return eventDaoImpl.update(new Event(dto.getEid(),dto.getType(),dto.getLocation(),dto.getaId(),dto.getDate(),dto.getTime(),dto.getTheme(),dto.getStatus()));
     }
 
     @Override
     public boolean deletEevent(String id) throws SQLException, ClassNotFoundException {
-        return eventDaoImpl.deletEevent(id);
+        return eventDaoImpl.delete(id);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class EventBoImpl implements EventBo {
 
     @Override
     public ArrayList<EventDesignDto> getAllCurrentEvents() throws SQLException, ClassNotFoundException {
-        ArrayList<Event> events = (ArrayList<Event>) eventDaoImpl.getAllevents();
+        ArrayList<Event> events = (ArrayList<Event>) eventDaoImpl.getAll();
         ArrayList<EventDesignDto> dto = new ArrayList<>();
         for (Event c : events) {
             dto.add(new EventDesignDto(c.getEid(),c.getType(),c.getLocation(),c.getaId(),c.getTime(),c.getDate(),c.getTheme(),c.getStatus()));

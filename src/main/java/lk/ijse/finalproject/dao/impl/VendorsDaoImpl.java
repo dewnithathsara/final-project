@@ -36,7 +36,7 @@ public class VendorsDaoImpl implements VendorsDao {
 
     }
     @Override
-    public String generateNextVendorId() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet =  SqlUtil.testQuery("SELECT id FROM vendors ORDER BY id DESC LIMIT 1  ");
         if (resultSet.next()) {
@@ -49,12 +49,12 @@ public class VendorsDaoImpl implements VendorsDao {
     }
 
     @Override
-    public boolean saveVendor(Vendors dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Vendors dto) throws SQLException, ClassNotFoundException {
         boolean isSaved =SqlUtil.testQuery("INSERT INTO vendors(id,uid,category,name,email,contactInfo) VALUES(?,?,?,?,?,?)",dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact());
         return isSaved;
     }
     @Override
-    public List<Vendors> getAllVendors() throws SQLException, ClassNotFoundException {
+    public List<Vendors> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SqlUtil.testQuery( "SELECT * FROM vendors");
         ArrayList<Vendors> dtoList = new ArrayList<>();
@@ -76,12 +76,12 @@ public class VendorsDaoImpl implements VendorsDao {
         return dtoList;
     }
     @Override
-    public boolean deleteVendor(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
 
         return SqlUtil.testQuery("DELETE FROM vendors WHERE id=?",id);
     }
     @Override
-    public boolean updateVendor(Vendors dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Vendors dto) throws SQLException, ClassNotFoundException {
 
 
         return SqlUtil.testQuery("UPDATE vendors SET uid=?,category=?,name=?,email=?,contactInfo=? WHERE id=?",dto.getId(),dto.getUid(),dto.getCategory(),dto.getName(),dto.getEmail(),dto.getContact());

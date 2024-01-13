@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ServiceDaoImpl implements ServiceDao {
     @Override
-    public String generateSid() throws SQLException, ClassNotFoundException {
+    public String generateId() throws SQLException, ClassNotFoundException {
         ResultSet resultSet= SqlUtil.testQuery("SELECT sid FROM service ORDER BY sid LIMIT 1");
         if(resultSet.next()){
             String id= resultSet.getString("sid");
@@ -27,11 +27,11 @@ public class ServiceDaoImpl implements ServiceDao {
     }
 
     @Override
-    public boolean saveService(Service dto) throws SQLException, ClassNotFoundException {
+    public boolean save(Service dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO service(sid,package_name,description,price) VALUES(?,?,?,?)",dto.getSid(),dto.getPackageName(),dto.getPackageName(),dto.getPrice());
     }
     @Override
-    public List<Service> getAllServices() throws SQLException, ClassNotFoundException {
+    public List<Service> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM service");
         ArrayList<Service> dtoList=new ArrayList<>();
         while(resultSet.next()){
@@ -48,11 +48,11 @@ public class ServiceDaoImpl implements ServiceDao {
         return dtoList;
     }
     @Override
-    public boolean deleteService(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("DELETE FROM service WHERE sid=?",id);
     }
     @Override
-    public boolean updateService(Service dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Service dto) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("UPDATE service SET package_name=?,description=?,price=? WHERE sid=?",dto.getPackageName(),dto.getDescription(),dto.getPrice(),dto.getSid());
     }
     @Override

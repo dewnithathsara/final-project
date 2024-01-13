@@ -24,12 +24,12 @@ public class ClientDaoImpl implements ClientDao {
     public AppointmentDaoImpl appointmentModel=new AppointmentDaoImpl();
     public AppointmentDto appointmentDto=null;
     @Override
-    public boolean saveCustomer(Customer entity) throws SQLException, ClassNotFoundException {
+    public boolean save(Customer entity) throws SQLException, ClassNotFoundException {
         return SqlUtil.testQuery("INSERT INTO customer(cId,cust_name,email,address,contact) VALUE (?,?,?,?,?)",entity.getcId(),entity.getCustName(),entity.getEmail(),entity.getAddress(),entity.getContact());
     }
     // transaction part
     @Override
-    public boolean updateClient(Customer entity) throws SQLException, ClassNotFoundException {
+    public boolean update(Customer entity) throws SQLException, ClassNotFoundException {
         Connection connection=null;
         boolean isUpdate=false;
        try {
@@ -78,7 +78,7 @@ public class ClientDaoImpl implements ClientDao {
 }
 //transaction part
     @Override
-    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         Connection connection = null;
         boolean isDeleted = false;
         try {
@@ -102,7 +102,7 @@ public class ClientDaoImpl implements ClientDao {
         return isDeleted;
     }
     @Override
-    public List<Customer> getAllCustomers() throws SQLException, ClassNotFoundException {
+    public List<Customer> getAll() throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet= SqlUtil.testQuery("SELECT * FROM customer");
         ArrayList<Customer> entity=new ArrayList<>();
@@ -146,5 +146,9 @@ public class ClientDaoImpl implements ClientDao {
             );
         }
         return  null;
+    }
+    @Override
+    public String generateId(){
+        return null;
     }
 }
